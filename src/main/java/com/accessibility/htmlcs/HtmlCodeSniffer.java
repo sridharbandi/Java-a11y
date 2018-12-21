@@ -5,7 +5,12 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class HtmlCodeSniffer {
 
-    public static String getJS() throws UnirestException {
-       return Unirest.get("http://squizlabs.github.io/HTML_CodeSniffer/build/HTMLCS.js").asString().getBody();
+    public static String getJS() {
+        try {
+            return Unirest.get("http://squizlabs.github.io/HTML_CodeSniffer/build/HTMLCS.js").asString().getBody();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
