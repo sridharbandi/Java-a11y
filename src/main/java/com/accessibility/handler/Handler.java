@@ -13,12 +13,15 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Handler {
 
     private WebDriver driver;
     private JavascriptExecutor javascriptExecutor;
     private String htmlSniffer;
+    private String runner = "window.HTMLCS_RUNNER.run('%s');";
 
     public Handler(WebDriver driver) {
         this.driver = driver;
@@ -28,14 +31,15 @@ public class Handler {
 
     public void runAccessibility(String reportName){
         javascriptExecutor.executeScript(htmlSniffer);
-        javascriptExecutor.executeScript("window.HTMLCS_RUNNER.run('"+Accessibility.STANDARD+"');");
+        javascriptExecutor.executeScript(String.format(runner,Accessibility.STANDARD));
         //Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
        // LoggingPreferences logPrefs  = (LoggingPreferences) capabilities.getCapability(CapabilityType.LOGGING_PREFS);
         // logPrefs.getEnabledLogTypes();
 
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
-        for (LogEntry entry : logEntries) {
-            System.out.println(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
+        List<String> issues = logEntries.getAll().stream().map(str -> str.getMessage().endsWith("\"done\"")?"":str.getMessage().substring(str.getMessage().indexOf("[HTMLCS]"))).collect(Collectors.toList());
+        for (String entry : issues) {
+            System.out.println( entry);
         }
     }
 }
