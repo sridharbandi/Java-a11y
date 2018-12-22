@@ -2,6 +2,7 @@ package com.accessibility.handler;
 
 import com.accessibility.Accessibility;
 import com.accessibility.htmlcs.HtmlCodeSniffer;
+import com.accessibility.report.Issue;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -37,9 +38,21 @@ public class Handler {
         // logPrefs.getEnabledLogTypes();
 
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
-        List<String> issues = logEntries.getAll().stream().map(str -> str.getMessage().endsWith("\"done\"")?"":str.getMessage().substring(str.getMessage().indexOf("[HTMLCS]"))).collect(Collectors.toList());
-        for (String entry : issues) {
-            System.out.println( entry);
+        List<Issue> issues = logEntries.getAll().stream()
+                .map(str -> str.getMessage())
+
+                .filter(str -> !str.endsWith("\"done\""))
+                .map(str -> str.split("HTMLCS\\]")[1])
+                .map(str -> str.substring(0, str.length() - 1))
+                .map(issue -> new Issue(issue)).collect(Collectors.toList());
+        for (Issue entry : issues) {
+            System.out.println("---------------");
+            System.out.println( entry.getIssueType());
+            System.out.println( entry.getIssueCode());
+            System.out.println( entry.getIssueTag());
+            System.out.println( entry.getIssueId());
+            System.out.println( entry.getIssueMsg());
+            System.out.println( entry.getIssueElement());
         }
     }
 }
