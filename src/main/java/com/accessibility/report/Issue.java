@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Issue {
     private String issueType;
@@ -27,12 +28,24 @@ public class Issue {
 
     public List<String> getIssueTechniques(String issueCode) {
         Pattern pattern = Pattern.compile("([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)");
-        Matcher m = pattern.matcher(issueCode);
+        Matcher matcher = pattern.matcher(issueCode);
         LinkedList<String> codes = new LinkedList<>();
-        while (m.find()) {
-            codes.add(m.group());
+        while (matcher.find()) {
+            String str = matcher.group();
+            if(str.contains(",")){
+                String[] techniques = str.split(",");
+                for (String code : techniques){
+                    codes.add(code);
+                }
+            }
+            else {
+                codes.add(str);
+            }
         }
-        return codes;
+        if(codes.size() != 0){
+            codes.remove(0);
+        }
+        return codes.stream().map(code -> "https://www.w3.org/TR/WCAG20-TECHS/"+code).collect(Collectors.toList());
     }
 
     public List<String> getIssueTechniques() {
