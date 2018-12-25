@@ -31,7 +31,7 @@ public class Test {
 
     @org.junit.Test
     public void runSnifferTest() throws IOException {
-        driver.get("http://pa11y.org/");
+        driver.get("https://www.google.co.uk/");
         driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.MILLISECONDS);
         handler.runAccessibility("SS");
 

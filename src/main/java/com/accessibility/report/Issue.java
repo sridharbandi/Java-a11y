@@ -17,7 +17,7 @@ public class Issue {
 
     public Issue(String issue) {
         String[] arrIssue = issue.split("\\|");
-        this.setIssueType(arrIssue[0]);
+        this.setIssueType(arrIssue[0].trim());
         this.setIssueCode(arrIssue[1]);
         this.setIssueTechniques(getIssueTechniques(arrIssue[1]));
         this.setIssueTag(arrIssue[2]);
