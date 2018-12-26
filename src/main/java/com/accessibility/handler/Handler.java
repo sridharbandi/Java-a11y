@@ -4,6 +4,7 @@ import com.accessibility.Accessibility;
 import com.accessibility.htmlcs.HtmlCodeSniffer;
 import com.accessibility.report.Issue;
 import com.accessibility.report.Issues;
+import com.accessibility.report.SaveReport;
 import com.accessibility.util.IssueType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,6 +65,7 @@ public class Handler {
             e.printStackTrace();
         }
         System.out.println(jsonInString);
+        SaveReport.save(issues, reportName);
 
     }
 
