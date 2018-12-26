@@ -8,17 +8,11 @@ import com.accessibility.report.SaveReport;
 import com.accessibility.util.IssueType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +29,7 @@ public class Handler {
         htmlSniffer = HtmlCodeSniffer.getJS();
     }
 
+    //TODO - add device width and height
     public void runAccessibility(String reportName){
         javascriptExecutor.executeScript(htmlSniffer);
         javascriptExecutor.executeScript(String.format(runner,Accessibility.STANDARD));
