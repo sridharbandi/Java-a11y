@@ -65,7 +65,7 @@ public class Handler {
             e.printStackTrace();
         }
         System.out.println(jsonInString);
-        SaveReport.save(issues, reportName);
+        SaveReport.save(jsonInString, reportName);
 
     }
 
