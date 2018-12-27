@@ -20,16 +20,15 @@ var myChart = new Chart(ctx, {
     type: 'bar',
     data: barChartData,
     options: {
-        title: {
-            display: true,
-            text: 'URL Statistics'
-        },
         tooltips: {
             mode: 'index',
             intersect: false
         },
         scales: {
             xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
                 stacked: true
             }],
             yAxes: [{
