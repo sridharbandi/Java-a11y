@@ -29,7 +29,7 @@ public class Handler {
         htmlSniffer = HtmlCodeSniffer.getJS();
     }
 
-    //TODO - add device width and height
+    //TODO - add device width and height, time stamp
     public void runAccessibility(String reportName){
         javascriptExecutor.executeScript(htmlSniffer);
         javascriptExecutor.executeScript(String.format(runner,Accessibility.STANDARD));

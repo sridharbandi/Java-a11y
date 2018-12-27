@@ -1,5 +1,6 @@
 body {
-  background-color:#424242
+  background-color:#424242;
+  font-family: 'Roboto', sans-serif;
 }
 
 .header {
@@ -7,3 +8,9 @@ body {
   text-align: center;
   margin: 20px;
 }
+
+.pills {
+  padding: 20px 5px;
+  border: 5px solid #424242;
+}
+
