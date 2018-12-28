@@ -18,6 +18,10 @@ body {
   font-size: 10px !important;
 }
 
+.time{
+  margin-bottom: 10px !important;
+}
+
 .pagespechold{
   padding-top: 12px;
 }
