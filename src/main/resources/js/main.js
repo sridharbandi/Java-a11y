@@ -22,11 +22,20 @@ var myChart = new Chart(ctx, {
     options: {
         tooltips: {
             mode: 'index',
-            intersect: false
+            intersect: false,
+            callbacks: {
+                title: function (tooltipItems, data) {
+                    var idx = tooltipItems[0].index;
+                    return data.labels[idx];
+                }
+            }
         },
         scales: {
             xAxes: [{
                 ticks: {
+                    callback: function (value) {
+                        return value.substr(0, 10);
+                    },
                     beginAtZero: true
                 },
                 stacked: true
