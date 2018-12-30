@@ -57,3 +57,7 @@ hr{
 .btn, .card, .alert, .badge {
   border-radius: 0rem !important;
 }
+
+.footer{
+  min-height: 60px;
+}
