@@ -53,3 +53,7 @@ hr{
 .alert {
   margin: 5px !important;
 }
+
+.btn, .card, .alert, .badge {
+  border-radius: 0rem !important;
+}
