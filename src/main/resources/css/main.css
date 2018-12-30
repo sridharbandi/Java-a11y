@@ -40,3 +40,16 @@ body {
 .viewreport{
   padding-top: 10px;
 }
+
+hr{
+  margin-top: 0em !important;
+  margin-bottom: 0.5em !important;
+}
+
+.btncollapse{
+  padding: 5px;
+}
+
+.alert {
+  margin: 5px !important;
+}

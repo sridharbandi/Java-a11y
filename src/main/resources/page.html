@@ -16,12 +16,45 @@
 <div class="container">
     <br>
     <h3 class="text-white text-center">Page Statistics</h3>
-    <h6 class="text-white">URL : http://pa11y.org</h6>
-    <hr/>
-    <h6 class="text-white">STANDARD : WCAG2AA</h6>
-    <hr/>
-    <h6 class="text-white">BROWSER SIZE : 1280 X 720</h6>
-    <hr/>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <h6 class="text-info"><i class="fas fa-external-link-alt text-warning"></i><span
+                    class="text-warning"> Url</span> : http://pa11y.org</h6>
+            <hr/>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <h6 class="text-info"><i class="fas fa-list-ul text-warning"></i><span class="text-warning"> Standard</span>
+                : WCAG2AA</h6>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <h6 class="text-info">
+                <i class="far fa-credit-card text-warning"></i><span
+                    class="text-warning"> Browser</span>
+                : Chrome</h6>
+            <hr/>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <h6 class="text-info"><i class="fas fa-arrows-alt text-warning"></i><span
+                    class="text-warning"> Browser size</span> : 1280 X 720</h6>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <h6 class="text-info"><i class="far fa-window-restore text-warning"></i><span
+                    class="text-warning"> Device</span> : Desktop</h6>
+            <hr/>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <h6 class="text-info"><i class="fas fa-clock text-warning"></i><span class="text-warning"> Timestamp</span>
+                :
+                12-Sep-14 10:10:10</h6>
+            <hr/>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-4 col-md-4 pillspage badge badge-danger">
@@ -43,12 +76,69 @@
             </div>
         </div>
     </div>
+    <br>
+    <h3 class="text-white text-center">Issues - Details</h3>
+    <div class="row justify-content-start">
+        <div class="col-xs-4 btncollapse">
+            <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseErrors" aria-expanded="true" aria-controls="collapseErrors" >
+                Errors <span class="badge badge-light">4</span>
+            </button>
+        </div>
+        <div class="col-xs-4 btncollapse">
+            <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#collapseWarnings" aria-expanded="false" aria-controls="collapseWarnings">
+                Warnings <span class="badge badge-light">4</span>
+            </button>
+        </div>
+        <div class="col-xs-4 btncollapse">
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapseNotices" aria-expanded="false" aria-controls="collapseNotices">
+                Notices <span class="badge badge-light">4</span>
+            </button>
+        </div>
+        <div class="col-xs collapse show btncollapse" id="collapseErrors">
+            <div class="card bg-danger">
+                <div class="alert alert-danger btncollapse" role="alert">
+                    <div><strong>Code(s) : </strong>WCAG2AA.Principle2.Guideline 2_4.2_4_4.H77,H78,H79,H80,H81 </div>
+                    <hr/>
+                    <div><strong>Technique(s) : </strong> <a href="#" class="alert-link">H77</a>, <a href="#" class="alert-link">H78</a>, <a href="#" class="alert-link">H79</a></div>
+                    <hr/>
+                    <div><strong>Tag : </strong> title</div>
+                    <hr/>
+                    <div><strong>Message : </strong> Check that the link text combined with programmatically determined link context identifies the purpose of the link.</div>
+                    <hr/>
+                    <div><strong>Element : </strong> \\u003Ctitle>...\\u003C/title></div>
+                </div>
+                <div class="alert alert-danger btncollapse" role="alert">
+                    <div><strong>Code(s) : </strong>WCAG2AA.Principle2.Guideline 2_4.2_4_4.H77,H78,H79,H80,H81 </div>
+                    <hr/>
+                    <div><strong>Technique(s) : </strong> <a href="#" class="alert-link">H77</a>, <a href="#" class="alert-link">H78</a>, <a href="#" class="alert-link">H79</a></div>
+                    <hr/>
+                    <div><strong>Tag : </strong> title</div>
+                    <hr/>
+                    <div><strong>Message : </strong> Check that the link text combined with programmatically determined link context identifies the purpose of the link.</div>
+                    <hr/>
+                    <div><strong>Element : </strong> \\u003Ctitle>...\\u003C/title></div>
+                </div>
+                <div class="alert alert-danger btncollapse" role="alert">
+                    <div><strong>Code(s) : </strong>WCAG2AA.Principle2.Guideline 2_4.2_4_4.H77,H78,H79,H80,H81 </div>
+                    <hr/>
+                    <div><strong>Technique(s) : </strong> <a href="#" class="alert-link">H77</a>, <a href="#" class="alert-link">H78</a>, <a href="#" class="alert-link">H79</a></div>
+                    <hr/>
+                    <div><strong>Tag : </strong> title</div>
+                    <hr/>
+                    <div><strong>Message : </strong> Check that the link text combined with programmatically determined link context identifies the purpose of the link.</div>
+                    <hr/>
+                    <div><strong>Element : </strong> \\u003Ctitle>...\\u003C/title></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-
-\<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
         integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
