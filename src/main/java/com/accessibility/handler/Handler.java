@@ -30,7 +30,6 @@ public class Handler {
         htmlSniffer = HtmlCodeSniffer.getJS();
     }
 
-    //TODO - add device width and height
     public void runAccessibility(String reportName) {
         javascriptExecutor.executeScript(htmlSniffer);
         javascriptExecutor.executeScript(String.format(RUNNER, Accessibility.STANDARD));
@@ -53,6 +52,7 @@ public class Handler {
         issues.setUrl(driver.getCurrentUrl());
         issues.setDate(DateUtil.getDate());
         issues.setSize(getSize());
+        issues.setDevice(device());
         issues.setIssues(issuesList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = null;
@@ -75,8 +75,27 @@ public class Handler {
     }
 
     private String getSize() {
-        long width = (long) ((JavascriptExecutor) driver).executeScript("return window.innerWidth");
-        long height = (long) ((JavascriptExecutor) driver).executeScript("return window.innerHeight");
-        return width + " X " + height;
+        return getWidth() + " X " + getHeight();
+    }
+
+    private long getWidth() {
+        return (long) ((JavascriptExecutor) driver).executeScript("return window.innerWidth");
+    }
+
+    private long getHeight() {
+        return (long) ((JavascriptExecutor) driver).executeScript("return window.innerHeight");
+    }
+
+    private String device() {
+        int width = (int) getWidth();
+        if (width < 768) {
+            return "Phone";
+        } else if (width >= 768 && width < 992) {
+            return "Tablet";
+        } else if (width >= 992 && width < 1200) {
+            return "Small Laptop";
+        } else {
+            return "Laptop/Desktop";
+        }
     }
 }

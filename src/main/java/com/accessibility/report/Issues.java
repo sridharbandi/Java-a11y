@@ -11,6 +11,15 @@ public class Issues {
     private List<Issue> issues;
     private String date;
     private String size;
+    private String device;
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
 
     public String getSize() {
         return size;
