@@ -8,10 +8,19 @@ public class Issues {
     private int errors;
     private String standard;
     private String url;
-    private List<Issue> issues;
     private String date;
     private String size;
     private String device;
+    private String browser;
+    private List<Issue> issues;
+
+    public String getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
 
     public String getDevice() {
         return device;

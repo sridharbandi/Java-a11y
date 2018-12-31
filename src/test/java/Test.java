@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -34,8 +33,5 @@ public class Test {
         driver.get("https://www.google.co.uk/");
         driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.MILLISECONDS);
         handler.runAccessibility("SS");
-
-
-
     }
 }

@@ -9,10 +9,12 @@ import com.accessibility.util.DateUtil;
 import com.accessibility.util.IssueType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +55,7 @@ public class Handler {
         issues.setDate(DateUtil.getDate());
         issues.setSize(getSize());
         issues.setDevice(device());
+        issues.setBrowser(browserName());
         issues.setIssues(issuesList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = null;
@@ -90,12 +93,23 @@ public class Handler {
         int width = (int) getWidth();
         if (width < 768) {
             return "Phone";
-        } else if (width >= 768 && width < 992) {
+        } else if (width < 992) {
             return "Tablet";
-        } else if (width >= 992 && width < 1200) {
+        } else if (width < 1200) {
             return "Small Laptop";
         } else {
             return "Laptop/Desktop";
         }
+    }
+
+    private String browserName(){
+        Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
+        return upperCaseFirst(capabilities.getBrowserName())+" "+ capabilities.getVersion();
+    }
+
+    private String upperCaseFirst(String name){
+        char[] array = name.toCharArray();
+        array[0] = Character.toUpperCase(array[0]);
+        return new String(array);
     }
 }
