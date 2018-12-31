@@ -9,6 +9,15 @@ public class Issues {
     private String standard;
     private String url;
     private List<Issue> issues;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getNotices() {
         return notices;

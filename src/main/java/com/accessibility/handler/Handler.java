@@ -5,6 +5,7 @@ import com.accessibility.htmlcs.HtmlCodeSniffer;
 import com.accessibility.report.Issue;
 import com.accessibility.report.Issues;
 import com.accessibility.report.SaveReport;
+import com.accessibility.util.DateUtil;
 import com.accessibility.util.IssueType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,6 +51,7 @@ public class Handler {
         issues.setErrors(errors);
         issues.setStandard(Accessibility.STANDARD);
         issues.setUrl(driver.getCurrentUrl());
+        issues.setDate(DateUtil.getDate());
         issues.setIssues(issuesList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = null;
