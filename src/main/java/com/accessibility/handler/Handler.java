@@ -22,18 +22,18 @@ public class Handler {
     private WebDriver driver;
     private JavascriptExecutor javascriptExecutor;
     private String htmlSniffer;
-    private String runner = "window.HTMLCS_RUNNER.run('%s');";
+    private static String RUNNER = "window.HTMLCS_RUNNER.run('%s');";
 
     public Handler(WebDriver driver) {
         this.driver = driver;
-        javascriptExecutor =  (JavascriptExecutor) driver;
+        javascriptExecutor = (JavascriptExecutor) driver;
         htmlSniffer = HtmlCodeSniffer.getJS();
     }
 
-    //TODO - add device width and height, time stamp
-    public void runAccessibility(String reportName){
+    //TODO - add device width and height
+    public void runAccessibility(String reportName) {
         javascriptExecutor.executeScript(htmlSniffer);
-        javascriptExecutor.executeScript(String.format(runner,Accessibility.STANDARD));
+        javascriptExecutor.executeScript(String.format(RUNNER, Accessibility.STANDARD));
 
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         List<Issue> issuesList = logEntries.getAll().stream()
@@ -52,6 +52,7 @@ public class Handler {
         issues.setStandard(Accessibility.STANDARD);
         issues.setUrl(driver.getCurrentUrl());
         issues.setDate(DateUtil.getDate());
+        issues.setSize(getSize());
         issues.setIssues(issuesList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = null;
@@ -66,10 +67,16 @@ public class Handler {
 
     }
 
-    private int getCount(List<Issue> issues, IssueType issueType){
+    private int getCount(List<Issue> issues, IssueType issueType) {
         List<Issue> filteredIssues = issues.stream()
                 .filter(issue -> issue.getIssueType().equalsIgnoreCase(issueType.name()))
                 .collect(Collectors.toList());
         return filteredIssues.size();
+    }
+
+    private String getSize() {
+        long width = (long) ((JavascriptExecutor) driver).executeScript("return window.innerWidth");
+        long height = (long) ((JavascriptExecutor) driver).executeScript("return window.innerHeight");
+        return width + " X " + height;
     }
 }
