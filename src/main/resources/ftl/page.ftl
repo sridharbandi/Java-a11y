@@ -38,41 +38,7 @@
     </div>
     <div class="row" id="issues">
         <div class="col collapse show btncollapse" data-parent="#issues" id="collapseErrors">
-            <div class="card bg-danger">
-                <div class="alert alert-danger btncollapse" role="alert">
-                    <div><strong>Code(s) : </strong>WCAG2AA.Principle2.Guideline 2_4.2_4_4.H77,H78,H79,H80,H81 </div>
-                    <hr/>
-                    <div><strong>Technique(s) : </strong> <a href="#" class="alert-link">H77</a>, <a href="#" class="alert-link">H78</a>, <a href="#" class="alert-link">H79</a></div>
-                    <hr/>
-                    <div><strong>Tag : </strong> title</div>
-                    <hr/>
-                    <div><strong>Message : </strong> Check that the link text combined with programmatically determined link context identifies the purpose of the link.</div>
-                    <hr/>
-                    <div><strong>Element : </strong> \\u003Ctitle>...\\u003C/title></div>
-                </div>
-                <div class="alert alert-danger btncollapse" role="alert">
-                    <div><strong>Code(s) : </strong>WCAG2AA.Principle2.Guideline 2_4.2_4_4.H77,H78,H79,H80,H81 </div>
-                    <hr/>
-                    <div><strong>Technique(s) : </strong> <a href="#" class="alert-link">H77</a>, <a href="#" class="alert-link">H78</a>, <a href="#" class="alert-link">H79</a></div>
-                    <hr/>
-                    <div><strong>Tag : </strong> title</div>
-                    <hr/>
-                    <div><strong>Message : </strong> Check that the link text combined with programmatically determined link context identifies the purpose of the link.</div>
-                    <hr/>
-                    <div><strong>Element : </strong> \\u003Ctitle>...\\u003C/title></div>
-                </div>
-                <div class="alert alert-danger btncollapse" role="alert">
-                    <div><strong>Code(s) : </strong>WCAG2AA.Principle2.Guideline 2_4.2_4_4.H77,H78,H79,H80,H81 </div>
-                    <hr/>
-                    <div><strong>Technique(s) : </strong> <a href="#" class="alert-link">H77</a>, <a href="#" class="alert-link">H78</a>, <a href="#" class="alert-link">H79</a></div>
-                    <hr/>
-                    <div><strong>Tag : </strong> title</div>
-                    <hr/>
-                    <div><strong>Message : </strong> Check that the link text combined with programmatically determined link context identifies the purpose of the link.</div>
-                    <hr/>
-                    <div><strong>Element : </strong> \\u003Ctitle>...\\u003C/title></div>
-                </div>
-            </div>
+            <#include 'errors.ftl'>
         </div>
         <div class="col collapse btncollapse" data-parent="#issues" id="collapseWarnings">
             <div class="card bg-warning">
