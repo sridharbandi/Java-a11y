@@ -6,6 +6,7 @@ public class Issues {
     private int notices;
     private int warnings;
     private int errors;
+    private String name;
     private String standard;
     private String url;
     private String date;
@@ -13,6 +14,14 @@ public class Issues {
     private String device;
     private String browser;
     private List<Issue> issues;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getBrowser() {
         return browser;

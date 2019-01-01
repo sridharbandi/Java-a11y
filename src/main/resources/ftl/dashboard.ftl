@@ -4,13 +4,13 @@
             <div class="col-sm-6 pills badge badge-primary">
                 <div class="section">
                     <h6>Number of URL's</h6>
-                    <h1>100</h1>
+                    <h1>${urlcount}</h1>
                 </div>
             </div>
             <div class="col-sm-6 pills badge badge-danger">
                 <div class="section">
                     <h6>Errors</h6>
-                    <h1>100</h1>
+                    <h1>${errors}</h1>
                 </div>
             </div>
         </div>
@@ -18,13 +18,13 @@
             <div class="col-sm-6 pills badge badge-warning">
                 <div class="section">
                     <h6>Warnings</h6>
-                    <h1>100</h1>
+                    <h1>${warnings}</h1>
                 </div>
             </div>
             <div class="col-sm-6 pills badge badge-info">
                 <div class="section ">
                     <h6>Notices</h6>
-                    <h1>100</h1>
+                    <h1>${notices}</h1>
                 </div>
             </div>
         </div>

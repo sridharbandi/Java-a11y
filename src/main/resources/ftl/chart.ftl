@@ -1,6 +1,6 @@
 var ctx = document.getElementById("myChart").getContext('2d');
 var barChartData = {
-        labels: [<#list urls as url > ${ url },</#list >],
+        labels: [<#list urls as url > '${ url }',</#list >],
         datasets: [{
                 label: 'Errors',
                 backgroundColor: '#dc3545',

@@ -56,6 +56,7 @@ public class Handler {
         issues.setSize(getSize());
         issues.setDevice(device());
         issues.setBrowser(browserName());
+        issues.setName(reportName.isEmpty()?pageTitle():reportName);
         issues.setIssues(issuesList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = null;
@@ -100,6 +101,10 @@ public class Handler {
         } else {
             return "Laptop/Desktop";
         }
+    }
+
+    private String pageTitle(){
+        return driver.getCurrentUrl();
     }
 
     private String browserName(){

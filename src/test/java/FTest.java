@@ -20,7 +20,10 @@ public class FTest {
         List<String> items = new ArrayList<>();
         items.add("One");
         items.add("Two");
-        map.put("items", items);
+        map.put("urls", items);
+        map.put("errors", items);
+        map.put("warnings", items);
+        map.put("notices", items);
         Writer console = new OutputStreamWriter(System.out);
         template.process(map, console);
         console.flush();
