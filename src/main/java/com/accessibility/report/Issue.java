@@ -15,15 +15,7 @@ public class Issue {
     private String issueMsg;
     private String issueElement;
 
-    public Issue(String issue) {
-        String[] arrIssue = issue.split("\\|");
-        this.setIssueType(arrIssue[0].trim());
-        this.setIssueCode(arrIssue[1]);
-        this.setIssueTechniques(getIssueTechniques(arrIssue[1]));
-        this.setIssueTag(arrIssue[2]);
-        this.setIssueId(arrIssue[3]);
-        this.setIssueMsg(arrIssue[4]);
-        this.setIssueElement(arrIssue[5]);
+    public Issue() {
     }
 
     public List<String> getIssueTechniques(String issueCode) {

@@ -16,7 +16,10 @@ import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Handler {
@@ -42,7 +45,18 @@ public class Handler {
                 .filter(str -> !str.endsWith("\"done\""))
                 .map(str -> str.split("HTMLCS\\]")[1])
                 .map(str -> str.substring(0, str.length() - 1))
-                .map(issue -> new Issue(issue)).collect(Collectors.toList());
+                .map(issue ->{
+                    Issue isue = new Issue();
+                    String[] arrIssue = issue.split("\\|");
+                    isue.setIssueType(arrIssue[0].trim());
+                    isue.setIssueCode(arrIssue[1]);
+                    isue.setIssueTechniques(getIssueTechniques(arrIssue[1]));
+                    isue.setIssueTag(arrIssue[2]);
+                    isue.setIssueId(arrIssue[3]);
+                    isue.setIssueMsg(arrIssue[4]);
+                    isue.setIssueElement(arrIssue[5]);
+                    return isue;
+                }).collect(Collectors.toList());
         int notices = getCount(issuesList, IssueType.Notice);
         int warnings = getCount(issuesList, IssueType.Warning);
         int errors = getCount(issuesList, IssueType.Error);
@@ -56,7 +70,7 @@ public class Handler {
         issues.setSize(getSize());
         issues.setDevice(device());
         issues.setBrowser(browserName());
-        issues.setName(reportName.isEmpty()?pageTitle():reportName);
+        issues.setName(reportName.isEmpty() ? pageName() : reportName);
         issues.setIssues(issuesList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = null;
@@ -69,6 +83,28 @@ public class Handler {
         System.out.println(jsonInString);
         SaveReport.save(jsonInString, reportName);
 
+    }
+
+    public List<String> getIssueTechniques(String issueCode) {
+        Pattern pattern = Pattern.compile("([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)");
+        Matcher matcher = pattern.matcher(issueCode);
+        LinkedList<String> codes = new LinkedList<>();
+        while (matcher.find()) {
+            String str = matcher.group();
+            if(str.contains(",")){
+                String[] techniques = str.split(",");
+                for (String code : techniques){
+                    codes.add(code);
+                }
+            }
+            else {
+                codes.add(str);
+            }
+        }
+        if(codes.size() != 0){
+            codes.remove(0);
+        }
+        return codes.stream().map(code -> "https://www.w3.org/TR/WCAG20-TECHS/"+code).collect(Collectors.toList());
     }
 
     private int getCount(List<Issue> issues, IssueType issueType) {
@@ -103,16 +139,16 @@ public class Handler {
         }
     }
 
-    private String pageTitle(){
-        return driver.getCurrentUrl();
+    private String pageName() {
+        return driver.getTitle();
     }
 
-    private String browserName(){
+    private String browserName() {
         Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
-        return upperCaseFirst(capabilities.getBrowserName())+" "+ capabilities.getVersion();
+        return upperCaseFirst(capabilities.getBrowserName()) + " " + capabilities.getVersion();
     }
 
-    private String upperCaseFirst(String name){
+    private String upperCaseFirst(String name) {
         char[] array = name.toCharArray();
         array[0] = Character.toUpperCase(array[0]);
         return new String(array);
