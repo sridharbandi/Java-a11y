@@ -1,6 +1,6 @@
 var ctx = document.getElementById("myChart").getContext('2d');
 var barChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',],
     datasets: [{
         label: 'Errors',
         backgroundColor: '#dc3545',
