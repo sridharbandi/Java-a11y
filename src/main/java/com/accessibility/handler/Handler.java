@@ -9,6 +9,7 @@ import com.accessibility.util.DateUtil;
 import com.accessibility.util.IssueType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -54,7 +55,7 @@ public class Handler {
                     isue.setIssueTag(arrIssue[2]);
                     isue.setIssueId(arrIssue[3]);
                     isue.setIssueMsg(arrIssue[4]);
-                    isue.setIssueElement(arrIssue[5]);
+                    isue.setIssueElement(StringEscapeUtils.unescapeJava(arrIssue[5]));
                     return isue;
                 }).collect(Collectors.toList());
         int notices = getCount(issuesList, IssueType.Notice);

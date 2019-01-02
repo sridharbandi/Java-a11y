@@ -13,7 +13,7 @@
         <hr/>
         <div><strong>Message : </strong> ${warning.issueMsg}</div>
         <hr/>
-        <div><strong>Element : </strong> ${warning.issueElement}</div>
+        <div><strong>Element : </strong> ${warning.issueElement?html}</div>
     </div>
 </#list>
 </div>
