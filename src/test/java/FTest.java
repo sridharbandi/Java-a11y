@@ -1,6 +1,8 @@
 import com.accessibility.Accessibility;
+import com.accessibility.report.Issue;
 import com.accessibility.report.Issues;
 import com.accessibility.report.fmarker.FreMarker;
+import com.accessibility.util.IssueType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -22,7 +24,7 @@ public class FTest {
 
     public static void main(String[] args) throws IOException, TemplateException {
         Configuration cfg = FreMarker.cfg();
-        Template template = FreMarker.getTemplate(cfg, "index.ftl");
+        Template template = FreMarker.getTemplate(cfg, "page.ftl");
         List<Issues> allissues = Files.walk(Paths.get(Accessibility.REPORT_PATH+ "/report/json"))
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
@@ -51,9 +53,38 @@ public class FTest {
           //  System.out.println(file.getIssues().get(0).getIssueMsg());
         //}
 
+        for(Issues issues : allissues){
+            Map<String, Object> map = new HashMap<>();
+            map.put("reportname", issues.getName());
+            map.put("url", issues.getUrl());
+            map.put("standard", issues.getStandard());
+            map.put("browser", issues.getBrowser());
+            map.put("browsersize", issues.getSize());
+            map.put("device", issues.getDevice());
+            map.put("datetime", issues.getDate());
+            map.put("errorcount", issues.getErrors());
+            map.put("warningcount", issues.getWarnings());
+            map.put("noticecount", issues.getNotices());
+            List<Issue> errors = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Error.name())).collect(Collectors.toList());
+            map.put("errors", errors);
+            List<Issue> warnings = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Warning.name())).collect(Collectors.toList());
+            map.put("warnings", warnings);
+            List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Notice.name())).collect(Collectors.toList());
+            map.put("notices", notices);
+
+            Writer console = new OutputStreamWriter(System.out);
+            template.process(map, console);
+            console.flush();
+            System.out.println("--------------------------------------------------------");
+            System.out.println("--------------------------------------------------------");
+            System.out.println("--------------------------------------------------------");
+break;
 
 
-        Map<String, Object> map = new HashMap<>();
+        }
+
+
+       /* Map<String, Object> map = new HashMap<>();
 
         map.put("reportname", "Accessibility Report");
         map.put("urlcount", urlslist.size());
@@ -67,7 +98,7 @@ public class FTest {
         map.put("issues", allissues);
         Writer console = new OutputStreamWriter(System.out);
         template.process(map, console);
-        console.flush();
+        console.flush();*/
     }
 
     private static int getCount(List<Integer> list) {
