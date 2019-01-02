@@ -5,7 +5,7 @@
         <hr/>
         <div><strong>Technique(s) : </strong>
             <#list notice.issueTechniques as technique>
-            <a href="#" class="alert-link">${technique}</a>,
+            <a href="${technique}" class="alert-link">${technique?split('/')[5]}</a>,
             </#list>
         </div>
         <hr/>
