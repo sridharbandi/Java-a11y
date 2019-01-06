@@ -1,14 +1,20 @@
 package com.a11y.accessibility.driver;
 
+import com.a11y.accessibility.htmlcs.HTMLCS;
+import com.a11y.accessibility.util.Statik;
+import com.accessibility.Accessibility;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-public class DriverContext implements IDriverContext{
+public class DriverContext implements IDriverContext {
 
+    private HTMLCS htmlcs = HTMLCS.getInstance();
+    private JavascriptExecutor javascriptExecutor;
     private WebDriver driver;
 
     public DriverContext(WebDriver driver) {
         this.driver = driver;
+        javascriptExecutor = (JavascriptExecutor) driver;
     }
 
     @Override
@@ -18,16 +24,23 @@ public class DriverContext implements IDriverContext{
 
     @Override
     public long viewPortWidth() {
-        return (long) ((JavascriptExecutor) driver).executeScript("return window.innerWidth");
+        return (long) javascriptExecutor.executeScript("return window.innerWidth");
     }
 
     @Override
     public long viewPortHeight() {
-        return  (long) ((JavascriptExecutor) driver).executeScript("return window.innerHeight");
+        return  (long) javascriptExecutor.executeScript("return window.innerHeight");
     }
 
     @Override
     public void executeScript() {
-
+        javascriptExecutor.executeScript(htmlcs.getHTMLCS());
+        javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD));
     }
+
+    @Override
+    public String viewPort() {
+        return viewPortWidth()+" X "+viewPortHeight();
+    }
+
 }

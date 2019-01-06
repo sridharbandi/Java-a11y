@@ -42,7 +42,7 @@ public class Result extends DriverContext {
                 }).collect(Collectors.toList());
     }
 
-    public List<String> getIssueTechniques(String issueCode) {
+    protected List<String> getIssueTechniques(String issueCode) {
         Pattern pattern = Pattern.compile("([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)");
         Matcher matcher = pattern.matcher(issueCode);
         LinkedList<String> codes = new LinkedList<>();

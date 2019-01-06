@@ -6,4 +6,5 @@ public interface IDriverContext {
     long viewPortWidth();
     long viewPortHeight();
     void executeScript();
+    String viewPort();
 }

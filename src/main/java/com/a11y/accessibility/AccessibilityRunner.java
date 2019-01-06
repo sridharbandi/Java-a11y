@@ -5,8 +5,6 @@ import com.a11y.accessibility.issues.IErrors;
 import com.a11y.accessibility.issues.INotices;
 import com.a11y.accessibility.issues.IWarnings;
 import com.a11y.accessibility.issues.Result;
-import com.a11y.accessibility.util.Statik;
-import com.accessibility.Accessibility;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -30,8 +28,6 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     }
 
     public void execute(String pageName){
-        javascriptExecutor.executeScript(htmlcs.getHTMLCS());
-        javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD));
         executeScript();
     }
 
