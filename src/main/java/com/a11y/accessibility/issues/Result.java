@@ -1,5 +1,6 @@
 package com.a11y.accessibility.issues;
 
+import com.a11y.accessibility.driver.DriverContext;
 import com.accessibility.report.Issue;
 import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.WebDriver;
@@ -12,13 +13,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Result {
+public class Result extends DriverContext {
     private WebDriver driver;
 
     public Result(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
-
 
     public List<Issue> issueList(){
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);

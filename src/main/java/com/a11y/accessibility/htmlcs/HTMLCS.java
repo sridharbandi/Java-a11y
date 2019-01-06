@@ -33,4 +33,8 @@ public class HTMLCS {
             instance = new HTMLCS();
         return instance;
     }
+
+    public String getHTMLCS(){
+        return htmlcs;
+    }
 }

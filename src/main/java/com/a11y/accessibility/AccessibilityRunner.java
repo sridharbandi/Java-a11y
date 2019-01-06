@@ -5,6 +5,8 @@ import com.a11y.accessibility.issues.IErrors;
 import com.a11y.accessibility.issues.INotices;
 import com.a11y.accessibility.issues.IWarnings;
 import com.a11y.accessibility.issues.Result;
+import com.a11y.accessibility.util.Statik;
+import com.accessibility.Accessibility;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -13,6 +15,9 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     private HTMLCS htmlcs = HTMLCS.getInstance();
     private WebDriver driver;
     private JavascriptExecutor javascriptExecutor;
+    private int errorCount = 0;
+    private int warningCount = 0;
+    private int noticeCount = 0;
 
     public AccessibilityRunner(WebDriver driver) {
         super(driver);
@@ -20,18 +25,29 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         javascriptExecutor = (JavascriptExecutor) driver;
     }
 
+    public void execute(){
+
+    }
+
+    public void execute(String pageName){
+        javascriptExecutor.executeScript(htmlcs.getHTMLCS());
+        javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD));
+        executeScript();
+    }
+
+
     @Override
     public int errorCount() {
-        return 0;
+        return errorCount;
     }
 
     @Override
     public int noticeCount() {
-        return 0;
+        return noticeCount;
     }
 
     @Override
     public int warningCount() {
-        return 0;
+        return warningCount;
     }
 }
