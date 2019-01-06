@@ -1,4 +1,4 @@
-import com.accessibility.handler.Handler;
+import com.a11y.accessibility.AccessibilityRunner;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +14,8 @@ import java.util.logging.Level;
 
 public class Test {
     private WebDriver driver;
-    private Handler handler;
+   // private Handler handler;
+    private AccessibilityRunner accessibilityRunner;
 
     @Before
     public void beforeTest() throws IOException {
@@ -24,7 +25,8 @@ public class Test {
         logPrefs.enable(LogType.BROWSER, Level.ALL);
         chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
         driver = new ChromeDriver(chromeOptions);
-        handler = new Handler(driver);
+        //handler = new Handler(driver);
+        accessibilityRunner = new AccessibilityRunner(driver);
 
     }
 
@@ -32,6 +34,7 @@ public class Test {
     public void runSnifferTest() throws IOException {
         driver.get("https://www.google.co.uk/");
         driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.MILLISECONDS);
-        handler.runAccessibility("SS");
+       // handler.runAccessibility("SS");
+        accessibilityRunner.execute("Google");
     }
 }
