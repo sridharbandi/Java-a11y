@@ -7,4 +7,7 @@ public interface IDriverContext {
     long viewPortHeight();
     void executeScript();
     String viewPort();
+    String url();
+    String device();
+    String browserName();
 }

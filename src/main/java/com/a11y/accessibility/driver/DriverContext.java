@@ -3,8 +3,10 @@ package com.a11y.accessibility.driver;
 import com.a11y.accessibility.htmlcs.HTMLCS;
 import com.a11y.accessibility.util.Statik;
 import com.accessibility.Accessibility;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class DriverContext implements IDriverContext {
 
@@ -29,7 +31,7 @@ public class DriverContext implements IDriverContext {
 
     @Override
     public long viewPortHeight() {
-        return  (long) javascriptExecutor.executeScript("return window.innerHeight");
+        return (long) javascriptExecutor.executeScript("return window.innerHeight");
     }
 
     @Override
@@ -40,7 +42,38 @@ public class DriverContext implements IDriverContext {
 
     @Override
     public String viewPort() {
-        return viewPortWidth()+" X "+viewPortHeight();
+        return viewPortWidth() + " X " + viewPortHeight();
+    }
+
+    @Override
+    public String url() {
+        return driver.getCurrentUrl();
+    }
+
+    @Override
+    public String device() {
+        int width = (int) viewPortWidth();
+        if (width < 768) {
+            return "Phone";
+        } else if (width < 992) {
+            return "Tablet";
+        } else if (width < 1200) {
+            return "Small Laptop";
+        } else {
+            return "Laptop/Desktop";
+        }
+    }
+
+    @Override
+    public String browserName() {
+        Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
+        return upperCaseFirst(capabilities.getBrowserName()) + " " + capabilities.getVersion();
+    }
+
+    private String upperCaseFirst(String name) {
+        char[] array = name.toCharArray();
+        array[0] = Character.toUpperCase(array[0]);
+        return new String(array);
     }
 
 }

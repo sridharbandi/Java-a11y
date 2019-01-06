@@ -1,7 +1,7 @@
 package com.a11y.accessibility.issues;
 
 import com.a11y.accessibility.driver.DriverContext;
-import com.accessibility.report.Issue;
+import com.a11y.accessibility.modal.Issue;
 import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntries;
@@ -21,7 +21,7 @@ public class Result extends DriverContext {
         this.driver = driver;
     }
 
-    public List<Issue> issueList(){
+    protected List<com.a11y.accessibility.modal.Issue> issueList(){
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         return logEntries.getAll().stream()
                 .map(str -> str.getMessage())
