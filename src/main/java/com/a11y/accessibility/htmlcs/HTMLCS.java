@@ -16,7 +16,7 @@ public class HTMLCS {
 
     private static HTMLCS instance = null;
 
-    public String htmlcs;
+    private String htmlcs;
 
     private HTMLCS(){
         try {
