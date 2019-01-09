@@ -3,7 +3,7 @@ package com.a11y.accessibility;
 import com.a11y.accessibility.issues.IErrors;
 import com.a11y.accessibility.issues.INotices;
 import com.a11y.accessibility.issues.IWarnings;
-import com.a11y.accessibility.issues.Result;
+import com.a11y.accessibility.report.Result;
 import com.a11y.accessibility.modal.Issue;
 import com.a11y.accessibility.modal.Issues;
 import com.a11y.accessibility.util.IssueType;
