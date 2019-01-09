@@ -21,7 +21,7 @@ public class Result extends DriverContext {
         this.driver = driver;
     }
 
-    protected List<com.a11y.accessibility.modal.Issue> issueList(){
+    protected List<Issue> issueList(){
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         return logEntries.getAll().stream()
                 .map(str -> str.getMessage())
