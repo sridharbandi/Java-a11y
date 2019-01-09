@@ -63,4 +63,24 @@ public class Report extends DriverContext {
         }
         return allissues;
     }
+
+    protected List<String> reportUrls(List<Issues> allissues){
+        return allissues.stream().map(url -> url.getUrl()).collect(Collectors.toList());
+    }
+
+    protected List<Integer> reportErrors(List<Issues> allissues){
+        return allissues.stream().map(url -> url.getErrors()).collect(Collectors.toList());
+    }
+
+    protected List<Integer> reportWarnings(List<Issues> allissues){
+        return allissues.stream().map(url -> url.getWarnings()).collect(Collectors.toList());
+    }
+
+    protected List<Integer> reportNotices(List<Issues> allissues){
+        return allissues.stream().map(url -> url.getNotices()).collect(Collectors.toList());
+    }
+
+    protected int count(List<Integer> list) {
+        return list.stream().mapToInt(Integer::intValue).sum();
+    }
 }
