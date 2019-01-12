@@ -6,16 +6,21 @@ import com.a11y.accessibility.ftl.FtlConfig;
 import com.a11y.accessibility.modal.Issues;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.apache.commons.io.FilenameUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Report extends DriverContext {
@@ -82,5 +87,20 @@ public class Report extends DriverContext {
 
     protected int count(List<Integer> list) {
         return list.stream().mapToInt(Integer::intValue).sum();
+    }
+
+    protected void save(Template tmpl, Map<String, Object> map){
+        try {
+            Writer file = new FileWriter(new File(""));
+            tmpl.process(map, file);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
