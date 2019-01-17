@@ -13,7 +13,16 @@ public class Issues {
     private String size;
     private String device;
     private String browser;
+    private String reportID;
     private List<Issue> issues;
+
+    public String getReportID() {
+        return reportID;
+    }
+
+    public void setReportID(String reportID) {
+        this.reportID = reportID;
+    }
 
     public String getName() {
         return name;

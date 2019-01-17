@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class AccessibilityRunner extends Result implements IErrors, IWarnings, INotices {
@@ -57,6 +58,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         issues.setDevice(device());
         issues.setBrowser(browserName());
         issues.setName(reportName.isEmpty() ? pageTitle() : reportName);
+        issues.setReportID(UUID.randomUUID().toString().replace("-", ""));
         issues.setIssues(issueList);
         return issues;
     }
@@ -98,9 +100,10 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
             map.put("warnings", warnings);
             List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(com.accessibility.util.IssueType.Notice.name())).collect(Collectors.toList());
             map.put("notices", notices);
-            //Save Page report
+            save(tmplPage, map,issues.getReportID());
         }
 
+        Template tmplIndex = getTemplate("index.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("reportname", "Accessibility Report");
         map.put("urlcount", reportUrls(allissues).size());
@@ -112,7 +115,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         map.put("warnings", reportWarnings(allissues));
         map.put("notices", reportNotices(allissues));
         map.put("issues", issues);
-        //Save index report
+        save(tmplIndex, map, "index");
 
     }
 

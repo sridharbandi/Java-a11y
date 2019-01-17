@@ -10,15 +10,6 @@ public class Issue {
     private String issueId;
     private String issueMsg;
     private String issueElement;
-    private String reportId;
-
-    public String getReportId() {
-        return reportId;
-    }
-
-    public void setReportId(String reportId) {
-        this.reportId = reportId;
-    }
 
     public List<String> getIssueTechniques() {
         return issueTechniques;
