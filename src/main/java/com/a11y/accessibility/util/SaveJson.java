@@ -21,7 +21,7 @@ public class SaveJson {
         ObjectMapper mapper = new ObjectMapper();
         try {
             String strResponse = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(issues);
-            String path = getReportPath() + "/" + reportName + ".json";
+            String path = getReportPath(true) + "/" + reportName + ".json";
             Files.write(Paths.get(path), strResponse.getBytes());
             LOG.info("Saved Accessibility Json Report {} at {}", reportName, path);
             if(Accessibility.LOG_RESULTS){
@@ -36,8 +36,9 @@ public class SaveJson {
         }
     }
 
-    private static String getReportPath() {
-        String directory = Accessibility.REPORT_PATH + "/report/json";
+    public static String getReportPath(boolean isJson) {
+        String folder = isJson? "json": "html";
+        String directory = Accessibility.REPORT_PATH + "/report/"+folder;
         Path path = Paths.get(directory);
         try {
             if (!Files.exists(path)) {

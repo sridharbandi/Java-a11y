@@ -4,6 +4,7 @@ import com.a11y.accessibility.Accessibility;
 import com.a11y.accessibility.driver.DriverContext;
 import com.a11y.accessibility.ftl.FtlConfig;
 import com.a11y.accessibility.modal.Issues;
+import com.a11y.accessibility.util.SaveJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -89,9 +90,9 @@ public class Report extends DriverContext {
         return list.stream().mapToInt(Integer::intValue).sum();
     }
 
-    protected void save(Template tmpl, Map<String, Object> map){
+    protected void save(Template tmpl, Map<String, Object> map, String name){
         try {
-            Writer file = new FileWriter(new File(""));
+            Writer file = new FileWriter(new File(SaveJson.getReportPath(false)+"/"+ name+".html"));
             tmpl.process(map, file);
             file.flush();
             file.close();
