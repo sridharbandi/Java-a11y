@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6 col-md-6">
-        <h6 class="text-info"><i class="fas fa-external-link-alt text-warning"></i><span
+        <h6 class="text-info text-truncate"><i class="fas fa-external-link-alt text-warning"></i><span
                 class="text-warning"> Url</span> : ${url}</h6>
         <hr/>
     </div>

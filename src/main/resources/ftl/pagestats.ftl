@@ -1,7 +1,7 @@
 <#list issues as issue>
 <div class="col-sm-6 pillspage badge badge-secondary">
 <h5>${issue.name}</h5>
-<h6>${issue.url}</h6>
+<h6 class="text-truncate">${issue.url}</h6>
 <div class="time">
     <span class="text-warning"><i class="fas fa-clock"></i> ${issue.date}</span>
 </div>
