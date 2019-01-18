@@ -1,6 +1,6 @@
 package com.a11y.accessibility;
 
-import com.accessibility.util.Standard;
+import com.a11y.accessibility.util.Standard;
 
 public class Accessibility {
 

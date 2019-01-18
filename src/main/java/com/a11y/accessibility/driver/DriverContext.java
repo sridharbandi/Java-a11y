@@ -1,8 +1,8 @@
 package com.a11y.accessibility.driver;
 
+import com.a11y.accessibility.Accessibility;
 import com.a11y.accessibility.htmlcs.HTMLCS;
 import com.a11y.accessibility.util.Statik;
-import com.accessibility.Accessibility;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

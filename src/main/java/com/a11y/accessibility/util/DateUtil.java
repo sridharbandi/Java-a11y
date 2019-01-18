@@ -1,4 +1,4 @@
-package com.accessibility.util;
+package com.a11y.accessibility.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

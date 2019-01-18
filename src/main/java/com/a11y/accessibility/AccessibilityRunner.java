@@ -8,7 +8,7 @@ import com.a11y.accessibility.modal.Issues;
 import com.a11y.accessibility.report.Result;
 import com.a11y.accessibility.util.IssueType;
 import com.a11y.accessibility.util.SaveJson;
-import com.accessibility.util.DateUtil;
+import com.a11y.accessibility.util.DateUtil;
 import freemarker.template.Template;
 import org.openqa.selenium.WebDriver;
 
@@ -94,11 +94,11 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
             map.put("errorcount", issues.getErrors());
             map.put("warningcount", issues.getWarnings());
             map.put("noticecount", issues.getNotices());
-            List<Issue> errors = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(com.accessibility.util.IssueType.Error.name())).collect(Collectors.toList());
+            List<Issue> errors = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Error.name())).collect(Collectors.toList());
             map.put("errors", errors);
-            List<Issue> warnings = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(com.accessibility.util.IssueType.Warning.name())).collect(Collectors.toList());
+            List<Issue> warnings = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Warning.name())).collect(Collectors.toList());
             map.put("warnings", warnings);
-            List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(com.accessibility.util.IssueType.Notice.name())).collect(Collectors.toList());
+            List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Notice.name())).collect(Collectors.toList());
             map.put("notices", notices);
             save(tmplPage, map,issues.getReportID());
         }
