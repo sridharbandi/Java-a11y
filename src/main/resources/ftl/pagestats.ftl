@@ -23,7 +23,7 @@
 </div>
 <div class="row">
     <div class="col viewreport">
-        <a href="page.html" class="btn btn-outline-light btn-sm" role="button">View Report</a>
+        <a href="${issue.reportID}.html" class="btn btn-outline-light btn-sm" role="button">View Report</a>
     </div>
 </div>
 </div>

@@ -54,6 +54,7 @@ public class Test {
         searchBox.submit();
         Thread.sleep(5000);
         accessibilityRunner.execute();
+        accessibilityRunner.generateHtmlReport();
     }
 
 

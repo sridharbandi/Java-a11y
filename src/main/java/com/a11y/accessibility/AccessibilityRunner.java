@@ -114,9 +114,8 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         map.put("errors", reportErrors(allissues));
         map.put("warnings", reportWarnings(allissues));
         map.put("notices", reportNotices(allissues));
-        map.put("issues", issues);
+        map.put("issues", allissues);
         save(tmplIndex, map, "index");
-
     }
 
 
