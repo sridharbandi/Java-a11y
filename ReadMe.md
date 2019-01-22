@@ -1,5 +1,7 @@
 ## Java-a11y
-Accessibility Automation for Web Apps with Java and Webdriver.
+Accessibility Automation for Web Apps with Java and Selenium Webdriver.
+
+
 
 
 
