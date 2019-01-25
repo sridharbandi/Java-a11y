@@ -17,6 +17,15 @@ Download the latest release from [https://github.com/sridharbandi/Java-a11y/rele
 Download the jar from above mentioned link and add it to CLASSPATH for you Selenium Java project
 
 ### Getting Started
+Make sure to enable logging capabilities to Webdriver. Below is the example for Chromedriver
+```java
+ChromeOptions chromeOptions = new ChromeOptions();
+LoggingPreferences logPrefs = new LoggingPreferences();
+logPrefs.enable(LogType.BROWSER, Level.ALL);
+chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+WebDriver driver = new ChromeDriver(chromeOptions);
+```
+
 This library is very easy to use. Create object of `AccessibilityRunner` as below
 ```java
 AccessibilityRunner accessibilityRunner = new AccessibilityRunner(driver);
@@ -126,6 +135,9 @@ Below are the report screenshots
 
 #### Page Report
 ![Page](/readme/page.png)
+
+> ### Note
+> I have tested this library only with Chromedriver.
 
 ### Todo
 1. Unit tests
