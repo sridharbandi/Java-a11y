@@ -36,7 +36,7 @@ Once after all the tests executed, you can call the below method to generate con
 accessibilityRunner.generateHtmlReport();
 ```
 
-
+This library can be used along with Junit, TestNG and Cucumber/JBehave
 Below is junit example with reporting
 
 ```java
@@ -102,7 +102,18 @@ public class Test {
 
 ```
 
-It can be used along with Junit, TestNG and Cucumber/JBehave
+By default it will check against `WCAG2AA` standards. However you can configure it to standard you want to test with
+```java
+Accessibility.STANDARD = Standard.WCAG2AAA;
+//Or
+Accessibility.STANDARD = Standard.WCAG2AA;
+//Or
+Accessibility.STANDARD = Standard.WCAG2A;
+//Or
+Accessibility.STANDARD = Standard.SECTION508;
+```
+
+
 
 
 
