@@ -17,7 +17,14 @@ Download the latest release from [https://github.com/sridharbandi/Java-a11y/rele
 Download the jar from above mentioned link and add it to CLASSPATH for you Selenium Java project
 
 ### Getting Started
-This library is very easy to use. Below is junit example with reporting.
+This library is very easy to use. Create object of `AccessibilityRunner` as below
+```java
+AccessibilityRunner accessibilityRunner = new AccessibilityRunner(driver);
+```
+
+
+
+Below is junit example with reporting.
 
 ```java
 import com.a11y.accessibility.AccessibilityRunner;
@@ -35,6 +42,9 @@ import org.openqa.selenium.remote.CapabilityType;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+/**
+ * A sample test to demonstrate
+ */
 public class Test {
     private WebDriver driver;
     private static AccessibilityRunner accessibilityRunner;
@@ -48,17 +58,20 @@ public class Test {
         chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
+        //Accessibility Runner Object
         accessibilityRunner = new AccessibilityRunner(driver);
     }
 
     @org.junit.Test
     public void googleTest() throws InterruptedException {
         driver.get("https://www.google.co.uk/");
+        //executes accessibility on Google Search Page
         accessibilityRunner.execute("Google");
     }
     @org.junit.Test
     public void w3cschoolsTest() throws InterruptedException {
         driver.get("https://www.w3schools.com/");
+        //executes accessibility on W3Schools Page
         accessibilityRunner.execute();
     }
 
@@ -69,11 +82,14 @@ public class Test {
 
     @AfterClass
     public static void generateReport(){
+         //Generated Consolidated HTML Report
          accessibilityRunner.generateHtmlReport();
     }
 }
 
 ```
+
+It can be used along with Junit, TestNG and Cucumber/JBehave
 
 
 
