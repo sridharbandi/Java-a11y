@@ -22,6 +22,12 @@ This library is very easy to use. Create object of `AccessibilityRunner` as belo
 AccessibilityRunner accessibilityRunner = new AccessibilityRunner(driver);
 ```
 
+Once after you navigated to any page/popup with Selenium Webdriver execute Accessibility on that particular page/popup
+```java
+accessibilityRunner.execute();
+//Or you can Pass Report Name
+accessibilityRunner.execute("Google");
+```
 
 
 Below is junit example with reporting.
