@@ -25,12 +25,19 @@ AccessibilityRunner accessibilityRunner = new AccessibilityRunner(driver);
 Once after you navigated to any page/popup with Selenium Webdriver execute Accessibility on that particular page/popup
 ```java
 accessibilityRunner.execute();
-//Or you can Pass Report Name
+//or you can pass report name
 accessibilityRunner.execute("Google");
 ```
 
+The above `execute` will also generate `JSON Report` on accessibility issues at page/popup level
 
-Below is junit example with reporting.
+Once after all the tests executed, you can call the below method to generate consolidated `HTML Report` on accessibility issues
+```java
+accessibilityRunner.generateHtmlReport();
+```
+
+
+Below is junit example with reporting
 
 ```java
 import com.a11y.accessibility.AccessibilityRunner;
