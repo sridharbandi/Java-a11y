@@ -113,8 +113,15 @@ Accessibility.STANDARD = Standard.WCAG2A;
 Accessibility.STANDARD = Standard.SECTION508;
 ```
 
+By default it will save reports under project root in `accessibility` folder. However you can configure it where to save
+```java
+Accessibility.REPORT_PATH =  System.getProperty("user.dir")+"/target/accessibility";
+```
 
-
+### Reports
+Below are the report screenshots
+![Index](/readme/index.png)
+![Page](/readme/page.png)
 
 
 
