@@ -120,7 +120,11 @@ Accessibility.REPORT_PATH =  System.getProperty("user.dir")+"/target/accessibili
 
 ### Reports
 Below are the report screenshots
+
+#### Consolidated Report
 ![Index](/readme/index.png)
+
+#### Page Report
 ![Page](/readme/page.png)
 
 
