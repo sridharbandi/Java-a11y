@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.sridharbandi</groupId>
+    <groupId>io.github.sridharbandi</groupId>
     <artifactId>java-a11y</artifactId>
     <version>1.0</version>
 
@@ -22,7 +22,7 @@
         <developer>
             <name>Sridhar Bandi</name>
             <email>sridhar.bandi.ece@gmail.com</email>
-            <organization>com.a11y.accessibility</organization>
+            <organization>io.github.sridharbandi</organization>
             <organizationUrl>https://github.com/sridharbandi</organizationUrl>
         </developer>
     </developers>

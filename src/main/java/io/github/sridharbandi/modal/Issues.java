@@ -1,4 +1,4 @@
-package com.a11y.accessibility.modal;
+package io.github.sridharbandi.modal;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package com.a11y.accessibility.ftl;
+package io.github.sridharbandi.ftl;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
-import static com.a11y.accessibility.util.Statik.ENCODING;
-import static com.a11y.accessibility.util.Statik.TEMPLATE_DIR;
+import static io.github.sridharbandi.util.Statik.ENCODING;
+import static io.github.sridharbandi.util.Statik.TEMPLATE_DIR;
 
 public class FtlConfig {
 

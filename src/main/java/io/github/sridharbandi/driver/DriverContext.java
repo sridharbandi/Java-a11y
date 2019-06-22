@@ -1,8 +1,8 @@
-package com.a11y.accessibility.driver;
+package io.github.sridharbandi.driver;
 
-import com.a11y.accessibility.Accessibility;
-import com.a11y.accessibility.htmlcs.HTMLCS;
-import com.a11y.accessibility.util.Statik;
+import io.github.sridharbandi.Accessibility;
+import io.github.sridharbandi.htmlcs.HTMLCS;
+import io.github.sridharbandi.util.Statik;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

@@ -1,4 +1,4 @@
-package com.a11y.accessibility.driver;
+package io.github.sridharbandi.driver;
 
 public interface IDriverContext {
 

@@ -1,6 +1,6 @@
-package com.a11y.accessibility;
+package io.github.sridharbandi;
 
-import com.a11y.accessibility.util.Standard;
+import io.github.sridharbandi.util.Standard;
 
 public class Accessibility {
 

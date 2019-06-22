@@ -1,14 +1,14 @@
-package com.a11y.accessibility;
+package io.github.sridharbandi;
 
-import com.a11y.accessibility.issues.IErrors;
-import com.a11y.accessibility.issues.INotices;
-import com.a11y.accessibility.issues.IWarnings;
-import com.a11y.accessibility.modal.Issue;
-import com.a11y.accessibility.modal.Issues;
-import com.a11y.accessibility.report.Result;
-import com.a11y.accessibility.util.IssueType;
-import com.a11y.accessibility.util.SaveJson;
-import com.a11y.accessibility.util.DateUtil;
+import io.github.sridharbandi.issues.IErrors;
+import io.github.sridharbandi.issues.INotices;
+import io.github.sridharbandi.issues.IWarnings;
+import io.github.sridharbandi.modal.Issue;
+import io.github.sridharbandi.modal.Issues;
+import io.github.sridharbandi.report.Result;
+import io.github.sridharbandi.util.IssueType;
+import io.github.sridharbandi.util.SaveJson;
+import io.github.sridharbandi.util.DateUtil;
 import freemarker.template.Template;
 import org.openqa.selenium.WebDriver;
 

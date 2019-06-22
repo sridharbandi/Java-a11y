@@ -1,10 +1,10 @@
-package com.a11y.accessibility.report;
+package io.github.sridharbandi.report;
 
-import com.a11y.accessibility.Accessibility;
-import com.a11y.accessibility.driver.DriverContext;
-import com.a11y.accessibility.ftl.FtlConfig;
-import com.a11y.accessibility.modal.Issues;
-import com.a11y.accessibility.util.SaveJson;
+import io.github.sridharbandi.Accessibility;
+import io.github.sridharbandi.driver.DriverContext;
+import io.github.sridharbandi.ftl.FtlConfig;
+import io.github.sridharbandi.modal.Issues;
+import io.github.sridharbandi.util.SaveJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

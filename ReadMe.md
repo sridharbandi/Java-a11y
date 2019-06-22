@@ -49,7 +49,7 @@ This library can be used along with Junit, TestNG and Cucumber/JBehave
 Below is junit example with reporting
 
 ```java
-import com.a11y.accessibility.AccessibilityRunner;
+import AccessibilityRunner;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.After;
 import org.junit.AfterClass;

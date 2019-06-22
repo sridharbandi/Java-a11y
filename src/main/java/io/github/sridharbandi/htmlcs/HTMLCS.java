@@ -1,6 +1,6 @@
-package com.a11y.accessibility.htmlcs;
+package io.github.sridharbandi.htmlcs;
 
-import com.a11y.accessibility.util.Statik;
+import io.github.sridharbandi.util.Statik;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

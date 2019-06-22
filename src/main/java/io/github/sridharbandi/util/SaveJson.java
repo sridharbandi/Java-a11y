@@ -1,8 +1,8 @@
-package com.a11y.accessibility.util;
+package io.github.sridharbandi.util;
 
 
-import com.a11y.accessibility.Accessibility;
-import com.a11y.accessibility.modal.Issues;
+import io.github.sridharbandi.Accessibility;
+import io.github.sridharbandi.modal.Issues;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

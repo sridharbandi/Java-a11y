@@ -1,4 +1,4 @@
-package com.a11y.accessibility.issues;
+package io.github.sridharbandi.issues;
 
 public interface INotices {
 

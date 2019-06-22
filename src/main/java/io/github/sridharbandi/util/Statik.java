@@ -1,4 +1,4 @@
-package com.a11y.accessibility.util;
+package io.github.sridharbandi.util;
 
 public class Statik {
     //HTMLCS path

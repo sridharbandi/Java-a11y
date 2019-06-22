@@ -1,4 +1,4 @@
-import com.a11y.accessibility.AccessibilityRunner;
+import io.github.sridharbandi.AccessibilityRunner;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.After;
 import org.junit.AfterClass;

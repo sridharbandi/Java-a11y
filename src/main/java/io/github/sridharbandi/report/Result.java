@@ -1,6 +1,6 @@
-package com.a11y.accessibility.report;
+package io.github.sridharbandi.report;
 
-import com.a11y.accessibility.modal.Issue;
+import io.github.sridharbandi.modal.Issue;
 import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntries;

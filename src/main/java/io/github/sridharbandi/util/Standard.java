@@ -1,4 +1,4 @@
-package com.a11y.accessibility.util;
+package io.github.sridharbandi.util;
 
 public class Standard {
     public static String WCAG2A = "WCAG2A";

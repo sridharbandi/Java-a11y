@@ -1,4 +1,4 @@
-package com.a11y.accessibility.util;
+package io.github.sridharbandi.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
