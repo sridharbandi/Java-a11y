@@ -3,9 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.a11y.accessibility</groupId>
+    <groupId>com.github.sridharbandi</groupId>
     <artifactId>java-a11y</artifactId>
     <version>1.0</version>
+
+    <name>Java a11y</name>
+    <description>Accessibility Automation for Web Apps with Java and Selenium Webdriver</description>
+    <url>https://github.com/sridharbandi/Java-a11y</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Sridhar Bandi</name>
+            <email>sridhar.bandi.ece@gmail.com</email>
+            <organization>com.a11y.accessibility</organization>
+            <organizationUrl>https://github.com/sridharbandi</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/sridharbandi/Java-a11y.git</connection>
+        <developerConnection>scm:git:ssh://github.com:sridharbandi/Java-a11y.git</developerConnection>
+        <url>http://github.com/sridharbandi/Java-a11y/tree/master</url>
+    </scm>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
