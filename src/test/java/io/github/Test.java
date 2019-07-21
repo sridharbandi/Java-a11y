@@ -1,3 +1,5 @@
+package io.github;
+
 import io.github.sridharbandi.AccessibilityRunner;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.After;
@@ -8,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -23,7 +24,7 @@ public class Test {
         ChromeOptions chromeOptions = new ChromeOptions();
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.BROWSER, Level.ALL);
-        chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+        chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
         accessibilityRunner = new AccessibilityRunner(driver);
