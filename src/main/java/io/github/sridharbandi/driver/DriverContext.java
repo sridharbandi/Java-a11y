@@ -28,6 +28,8 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DriverContext implements IDriverContext {
 
@@ -57,8 +59,15 @@ public class DriverContext implements IDriverContext {
 
     @Override
     public void executeScript() {
+        waitForLoad();
         javascriptExecutor.executeScript(htmlcs.getHTMLCS());
         javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD));
+    }
+
+    public void waitForLoad() {
+        ExpectedCondition<Boolean> pageLoadCondition = webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete");
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(pageLoadCondition);
     }
 
     @Override

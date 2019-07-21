@@ -55,6 +55,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     public void execute(String pageName){
         executeScript();
         issueList = issueList();
+        System.out.println(issueList.size());
         issues = getIssues(pageName);
         SaveJson.save(issues, pageName);
     }

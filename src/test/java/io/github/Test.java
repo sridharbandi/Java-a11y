@@ -26,11 +26,14 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -48,7 +51,9 @@ public class Test {
         chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
+        driver.manage().window().fullscreen();
         accessibilityRunner = new AccessibilityRunner(driver);
+
     }
 
     @After
