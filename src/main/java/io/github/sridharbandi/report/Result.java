@@ -25,6 +25,7 @@ import io.github.sridharbandi.modal.Issue;
 import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
 import java.util.LinkedList;
@@ -44,7 +45,8 @@ public class Result extends Report {
     protected List<Issue> issueList(){
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         return logEntries.getAll().stream()
-                .map(str -> str.getMessage())
+                .map(LogEntry::getMessage)
+                .filter(str -> str.trim().contains("HTMLCS"))
                 .filter(str -> !str.endsWith("\"done\""))
                 .map(str -> str.split("HTMLCS\\]")[1])
                 .map(str -> str.substring(0, str.length() - 1))
