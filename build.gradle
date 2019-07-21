@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.github.sridharbandi'
+group 'io.github.sridharbandi'
 version '1.0'
 
 sourceCompatibility = 1.8
