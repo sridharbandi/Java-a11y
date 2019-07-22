@@ -6,3 +6,5 @@
 /dependency-reduced-pom.xml
 /java-a11y.iml
 /pom.xml.versionsBackup
+/target/
+/out/
