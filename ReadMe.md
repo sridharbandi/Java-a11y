@@ -77,7 +77,7 @@ public class io.github.Test {
         ChromeOptions chromeOptions = new ChromeOptions();
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.BROWSER, Level.ALL);
-        chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+        chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
         //Accessibility Runner Object
