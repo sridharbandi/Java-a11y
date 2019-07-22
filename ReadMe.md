@@ -22,7 +22,7 @@ Make sure to enable logging capabilities to Webdriver. Below is the example for 
 ChromeOptions chromeOptions = new ChromeOptions();
 LoggingPreferences logPrefs = new LoggingPreferences();
 logPrefs.enable(LogType.BROWSER, Level.ALL);
-chromeOptions.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
 WebDriver driver = new ChromeDriver(chromeOptions);
 ```
 
@@ -67,7 +67,7 @@ import java.util.logging.Level;
 /**
  * A sample test to demonstrate
  */
-public class Test {
+public class io.github.Test {
     private WebDriver driver;
     private static AccessibilityRunner accessibilityRunner;
 
@@ -84,13 +84,13 @@ public class Test {
         accessibilityRunner = new AccessibilityRunner(driver);
     }
 
-    @org.junit.Test
+    @org.junit.io.github.Test
     public void googleTest() throws InterruptedException {
         driver.get("https://www.google.co.uk/");
         //executes accessibility on Google Search Page
         accessibilityRunner.execute("Google");
     }
-    @org.junit.Test
+    @org.junit.io.github.Test
     public void w3cschoolsTest() throws InterruptedException {
         driver.get("https://www.w3schools.com/");
         //executes accessibility on W3Schools Page
@@ -141,7 +141,6 @@ Below are the report screenshots
 
 ### Todo
 1. Unit tests
-2. Publish to maven repo
 
 
 

@@ -1,9 +1,31 @@
+/**
+ * Copyright (c) 2019 Sridhar Bandi.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package io.github.sridharbandi.report;
 
 import io.github.sridharbandi.modal.Issue;
 import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
 import java.util.LinkedList;
@@ -23,7 +45,8 @@ public class Result extends Report {
     protected List<Issue> issueList(){
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
         return logEntries.getAll().stream()
-                .map(str -> str.getMessage())
+                .map(LogEntry::getMessage)
+                .filter(str -> str.trim().contains("HTMLCS"))
                 .filter(str -> !str.endsWith("\"done\""))
                 .map(str -> str.split("HTMLCS\\]")[1])
                 .map(str -> str.substring(0, str.length() - 1))
