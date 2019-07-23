@@ -67,7 +67,7 @@ import java.util.logging.Level;
 /**
  * A sample test to demonstrate
  */
-public class io.github.Test {
+public class io.github.sridharbandi.driver.Test {
     private WebDriver driver;
     private static AccessibilityRunner accessibilityRunner;
 
@@ -84,13 +84,13 @@ public class io.github.Test {
         accessibilityRunner = new AccessibilityRunner(driver);
     }
 
-    @org.junit.io.github.Test
+    @org.junit.io.github.sridharbandi.driver.Test
     public void googleTest() throws InterruptedException {
         driver.get("https://www.google.co.uk/");
         //executes accessibility on Google Search Page
         accessibilityRunner.execute("Google");
     }
-    @org.junit.io.github.Test
+    @org.junit.io.github.sridharbandi.driver.Test
     public void w3cschoolsTest() throws InterruptedException {
         driver.get("https://www.w3schools.com/");
         //executes accessibility on W3Schools Page
