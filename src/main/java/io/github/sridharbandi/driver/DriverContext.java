@@ -64,7 +64,7 @@ public class DriverContext implements IDriverContext {
         javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD));
     }
 
-    public void waitForLoad() {
+    private void waitForLoad() {
         ExpectedCondition<Boolean> pageLoadCondition = webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete");
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(pageLoadCondition);
