@@ -9,10 +9,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,6 +26,8 @@ class DriverContextTest {
     JavascriptExecutor javascriptExecutor;
     @Mock
     WebDriver driver;
+    @Mock
+    RemoteWebDriver remoteWebDriver;
     @InjectMocks
     DriverContext driverContext = new DriverContext(driver);
 
@@ -80,9 +85,9 @@ class DriverContextTest {
         Assertions.assertEquals("Laptop/Desktop", driverContext.device());
     }
 
-   /* @Test
+  /* @Test
     void testBrowserName() {
-        when(((RemoteWebDriver)driver).getCapabilities().getBrowserName()).thenReturn("https://github.com/sridharbandi");
+       when(remoteWebDriver.getCapabilities()).thenReturn(DesiredCapabilities.chrome());
         String result = driverContext.browserName();
         Assertions.assertEquals("replaceMeWithExpectedResult", result);
     }*/
