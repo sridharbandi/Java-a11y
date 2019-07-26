@@ -37,7 +37,6 @@ class IssueTest {
     @Mock
     List<String> issueTechniques;
 
-
     @InjectMocks
     Issue issue;
 
