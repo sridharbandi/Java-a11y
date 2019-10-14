@@ -73,9 +73,7 @@ public class Result extends Report {
             String match = matcher.group();
             if (match.contains(",")) {
                 String[] techniques = match.split(",");
-                for (String code : techniques) {
-                    codes.add(code);
-                }
+                codes.addAll(Arrays.asList(techniques));
             } else {
                 codes.add(match);
             }
