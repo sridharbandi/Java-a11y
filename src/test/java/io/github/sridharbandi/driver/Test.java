@@ -19,30 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package io.github;
+package io.github.sridharbandi.driver;
 
-import io.github.sridharbandi.AccessibilityRunner;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.openqa.selenium.JavascriptExecutor;
+import io.github.sridharbandi.AccessibilityRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 public class Test {
-    private WebDriver driver;
+    /*private WebDriver driver;
     private static AccessibilityRunner accessibilityRunner;
 
-    @Before
+    @BeforeEach
     public void beforeTest() {
         ChromeDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -56,25 +53,25 @@ public class Test {
 
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         driver.quit();
     }
 
-    @AfterClass
+    @AfterAll
     public static void generateReport(){
         accessibilityRunner.generateHtmlReport();
     }
 
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void googleTest() throws InterruptedException {
         driver.get("https://www.google.co.uk/");
         accessibilityRunner.execute("Google");
     }
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void w3cschoolsTest() throws InterruptedException {
         driver.get("https://www.w3schools.com/");
         accessibilityRunner.execute();
-    }
+    }*/
 }

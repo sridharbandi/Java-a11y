@@ -55,7 +55,6 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     public void execute(String pageName){
         executeScript();
         issueList = issueList();
-        System.out.println(issueList.size());
         issues = getIssues(pageName);
         SaveJson.save(issues, pageName);
     }
@@ -103,7 +102,6 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     public void generateHtmlReport(){
         Template tmplPage = getTemplate("page.ftl");
         List<Issues> allissues = jsonIssues();
-
         for(Issues issues : allissues) {
             Map<String, Object> map = new HashMap<>();
             map.put("reportname", issues.getName());
