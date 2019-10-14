@@ -37,7 +37,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <selenium.version>3.141.59</selenium.version>
-        <freemaker.version>2.3.28</freemaker.version>
+        <freemaker.version>2.3.29</freemaker.version>
         <jackson.version>2.9.8</jackson.version>
         <apachecommons.version>1.6</apachecommons.version>
         <slf4j.version>1.8.0-beta2</slf4j.version>
