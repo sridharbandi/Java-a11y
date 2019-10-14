@@ -34,12 +34,13 @@ public class FtlConfig {
     private Configuration cfg;
 
     public FtlConfig() {
-        cfg = new Configuration(Configuration.VERSION_2_3_28);
+        cfg = new Configuration(Configuration.VERSION_2_3_29);
         cfg.setClassForTemplateLoading(FtlConfig.class.getClass(), TEMPLATE_DIR);
         cfg.setDefaultEncoding(ENCODING);
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         cfg.setLogTemplateExceptions(false);
         cfg.setWrapUncheckedExceptions(true);
+        cfg.setFallbackOnNullLoopVariable(false);
     }
 
     public static FtlConfig getInstance() {
