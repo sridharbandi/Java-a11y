@@ -21,6 +21,10 @@
  */
 package io.github.sridharbandi.htmlcs;
 
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.sameInstance;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,13 +42,14 @@ class HTMLCSTest {
 
     @Test
     void testGetInstance() {
-        HTMLCS result = HTMLCS.getInstance();
-        Assertions.assertEquals(htmlcs, result);
+        //HTMLCS result = HTMLCS.getInstance();
+        //Assertions.assertEquals(htmlcs, result, "HTMLCSTest.testGetInstance");
+        Assert.assertThat(htmlcs, not(sameInstance(HTMLCS.getInstance())));
     }
 
     @Test
     void testGetHTMLCS(){
-        Assertions.assertTrue(htmlcs.getHTMLCS().contains("HTML_CodeSniffer"));
+        Assertions.assertTrue(htmlcs.getHTMLCS().contains("HTML_CodeSniffer"),"HTMLCSTest.testGetHTMLCS");
 
     }
 }

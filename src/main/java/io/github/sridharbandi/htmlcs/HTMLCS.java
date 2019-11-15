@@ -38,21 +38,21 @@ public class HTMLCS {
     private static HTMLCS instance = null;
 
     private String htmlcs;
+    private byte[] htmlcsArray;
 
     private HTMLCS(){
         try {
-            Path path = Paths.get(getClass().getResource(Statik.HTMLCS_PATH).toURI());
-            htmlcs = new String(Files.readAllBytes(path));
-        } catch (URISyntaxException | IOException e) {
+            Path path = Paths.get(Statik.HTMLCS_PATH);
+            htmlcsArray = Files.readAllBytes(path);
+            htmlcs = new String(htmlcsArray, Statik.ENCODING);
+        } catch (IOException e) {
             LOG.error("Failed to read the file HTMLCS.js %s", e.getMessage());
             e.printStackTrace();
         }
     }
 
     public static HTMLCS getInstance(){
-        if (instance == null)
-            instance = new HTMLCS();
-        return instance;
+        return (instance == null)? new HTMLCS(): instance;
     }
 
     public String getHTMLCS(){

@@ -21,11 +21,14 @@
  */
 package io.github.sridharbandi;
 
+import io.github.sridharbandi.util.ConfigFileReader;
+import io.github.sridharbandi.util.FileReaderManager;
 import io.github.sridharbandi.util.Standard;
 
 public class Accessibility {
 
+    private static ConfigFileReader reader = FileReaderManager.getInstance().getConfigReader();
     public static String STANDARD = Standard.WCAG2AA;
-    public static String REPORT_PATH =  System.getProperty("user.dir")+"/accessibility";
+    public static String REPORT_PATH =  reader.getProperty("report.path");
     public static boolean LOG_RESULTS = true;
 }

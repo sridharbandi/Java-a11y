@@ -44,9 +44,7 @@ public class FtlConfig {
     }
 
     public static FtlConfig getInstance() {
-        if (instance == null)
-            instance = new FtlConfig();
-        return instance;
+        return (instance == null)? new FtlConfig() : instance;
     }
 
     public Configuration cfg() {

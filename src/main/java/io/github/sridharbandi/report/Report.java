@@ -112,14 +112,20 @@ public class Report extends DriverContext {
     }
 
     protected void save(Template tmpl, Map<String, Object> map, String name){
+        Path path;
+        File report;
         try {
-            Writer file = new FileWriter(new File(SaveJson.getReportPath(false)+"/"+ name+".html"));
+            path = Paths.get(SaveJson.getReportPath(false));
+            report = new File(path+"/"+name+".html");
+            Writer file = new FileWriter(report);
             tmpl.process(map, file);
             file.flush();
             file.close();
         } catch (IOException e) {
+            LOG.error(e.getMessage());
             e.printStackTrace();
         } catch (TemplateException e) {
+            LOG.error(e.getMessage());
             e.printStackTrace();
         }
 

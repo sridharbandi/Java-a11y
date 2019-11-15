@@ -48,6 +48,7 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testCompile "org.mockito:mockito-core:${mockitoVersion}"
     testCompile "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+    testCompile "junit:junit:4.12"
 }
 
 test {
