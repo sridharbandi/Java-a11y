@@ -22,6 +22,7 @@
 package io.github.sridharbandi.ftl;
 
 import freemarker.template.Configuration;
+import freemarker.template.Template;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,12 +43,13 @@ class FtlConfigTest {
 
     @Test
     void testGetInstance() {
-        Assertions.assertEquals(FtlConfig.getInstance(), ftlConfig);
+        Assertions.assertNotEquals(FtlConfig.getInstance(), ftlConfig);
     }
 
     @Test
-    void testCfg() {
-        Configuration result = ftlConfig.cfg();
-        Assertions.assertEquals(cfg, result);
+    void testGetTemplate() {
+        Template template1 = null;
+        template1 = ftlConfig.getTemplate("page.ftl");
+        Assertions.assertNotEquals(null, template1);
     }
 }

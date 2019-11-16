@@ -21,19 +21,13 @@
  */
 package io.github.sridharbandi.report;
 
-import io.github.sridharbandi.Accessibility;
-import io.github.sridharbandi.driver.DriverContext;
-import io.github.sridharbandi.ftl.FtlConfig;
-import io.github.sridharbandi.modal.Issues;
-import io.github.sridharbandi.util.SaveJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.apache.commons.io.FilenameUtils;
-import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import io.github.sridharbandi.Accessibility;
+import io.github.sridharbandi.driver.DriverContext;
+import io.github.sridharbandi.modal.Issues;
+import io.github.sridharbandi.util.SaveJson;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -44,6 +38,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FilenameUtils;
+import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Report extends DriverContext {
 
@@ -51,18 +49,6 @@ public class Report extends DriverContext {
 
     public Report(WebDriver driver) {
         super(driver);
-    }
-
-    protected Template getTemplate(String template) {
-        FtlConfig cfg = FtlConfig.getInstance();
-        Template tmplt = null;
-        try {
-            tmplt = cfg.cfg().getTemplate(template);
-        } catch (IOException e) {
-            e.printStackTrace();
-            LOG.error("Failed to get the freemarker template {}", template);
-        }
-        return tmplt;
     }
 
     protected List<Issues> jsonIssues() {
@@ -112,14 +98,23 @@ public class Report extends DriverContext {
     }
 
     protected void save(Template tmpl, Map<String, Object> map, String name){
+        Path path = null;
+        File report = null;
         try {
-            Writer file = new FileWriter(new File(SaveJson.getReportPath(false)+"/"+ name+".html"));
+            path = Paths.get(SaveJson.getReportPath(false));
+            report = new File(path+"/"+ name+".html");
+            Writer file = new FileWriter(report);
+            if (tmpl == null) {
+                throw new IOException("No Template");
+            }
             tmpl.process(map, file);
             file.flush();
             file.close();
         } catch (IOException e) {
+            LOG.error("unable to write file: "+ path+"/"+name);
             e.printStackTrace();
         } catch (TemplateException e) {
+            LOG.error("unable to find template: "+tmpl+" for "+name);
             e.printStackTrace();
         }
 
