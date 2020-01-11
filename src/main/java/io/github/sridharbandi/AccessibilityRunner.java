@@ -30,6 +30,7 @@ import io.github.sridharbandi.report.Result;
 import io.github.sridharbandi.util.IssueType;
 import io.github.sridharbandi.util.SaveJson;
 import io.github.sridharbandi.util.DateUtil;
+import io.github.sridharbandi.ftl.FtlConfig;
 import freemarker.template.Template;
 import org.openqa.selenium.WebDriver;
 
@@ -100,7 +101,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     }
 
     public void generateHtmlReport(){
-        Template tmplPage = getTemplate("page.ftl");
+        Template tmplPage = FtlConfig.getInstance().getTemplate("page.ftl");
         List<Issues> allissues = jsonIssues();
         for(Issues issues : allissues) {
             Map<String, Object> map = new HashMap<>();
@@ -123,7 +124,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
             save(tmplPage, map,issues.getReportID());
         }
 
-        Template tmplIndex = getTemplate("index.ftl");
+        Template tmplIndex = FtlConfig.getInstance().getTemplate("index.ftl");
         Map<String, Object> map = new HashMap<>();
         map.put("reportname", "Accessibility Report");
         map.put("urlcount", reportUrls(allissues).size());

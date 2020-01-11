@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.sridharbandi</groupId>
     <artifactId>java-a11y</artifactId>
-    <version>1.0.0-beta1</version>
+    <version>1.1.0-beta2</version>
 
     <name>Java a11y</name>
     <description>Accessibility Automation for Web Apps with Java and Selenium Webdriver</description>

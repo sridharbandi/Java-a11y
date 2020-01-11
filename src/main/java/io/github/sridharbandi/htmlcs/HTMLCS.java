@@ -22,14 +22,11 @@
 package io.github.sridharbandi.htmlcs;
 
 import io.github.sridharbandi.util.Statik;
+import java.io.IOException;
+import java.io.InputStream;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class HTMLCS {
 
@@ -40,19 +37,21 @@ public class HTMLCS {
     private String htmlcs;
 
     private HTMLCS(){
+        ClassLoader cl = this.getClass().getClassLoader();
+        InputStream in = cl.getResourceAsStream(Statik.HTMLCS_PATH);
         try {
-            Path path = Paths.get(getClass().getResource(Statik.HTMLCS_PATH).toURI());
-            htmlcs = new String(Files.readAllBytes(path));
-        } catch (URISyntaxException | IOException e) {
+            if (in == null) {
+                throw new IOException("InputStream failed for: "+Statik.HTMLCS_PATH);
+            }
+            htmlcs = IOUtils.toString(in, Statik.ENCODING);
+        } catch ( IOException e) {
             LOG.error("Failed to read the file HTMLCS.js %s", e.getMessage());
             e.printStackTrace();
         }
     }
 
     public static HTMLCS getInstance(){
-        if (instance == null)
-            instance = new HTMLCS();
-        return instance;
+        return (instance == null)? new HTMLCS() : instance;
     }
 
     public String getHTMLCS(){

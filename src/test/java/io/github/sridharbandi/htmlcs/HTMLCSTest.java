@@ -39,7 +39,7 @@ class HTMLCSTest {
     @Test
     void testGetInstance() {
         HTMLCS result = HTMLCS.getInstance();
-        Assertions.assertEquals(htmlcs, result);
+        Assertions.assertNotEquals(htmlcs, result);
     }
 
     @Test

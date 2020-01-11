@@ -21,21 +21,26 @@
  */
 package io.github.sridharbandi.ftl;
 
-import freemarker.template.Configuration;
-import freemarker.template.TemplateExceptionHandler;
-
 import static io.github.sridharbandi.util.Statik.ENCODING;
 import static io.github.sridharbandi.util.Statik.TEMPLATE_DIR;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
+import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class FtlConfig {
+    private static Logger LOG = LoggerFactory.getLogger(FtlConfig.class);
 
     private static FtlConfig instance = null;
 
-    private Configuration cfg;
+    private Configuration cfg = null;
 
     public FtlConfig() {
         cfg = new Configuration(Configuration.VERSION_2_3_29);
-        cfg.setClassForTemplateLoading(FtlConfig.class.getClass(), TEMPLATE_DIR);
+        cfg.setClassLoaderForTemplateLoading(this.getClass().getClassLoader(), TEMPLATE_DIR);
         cfg.setDefaultEncoding(ENCODING);
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         cfg.setLogTemplateExceptions(false);
@@ -44,12 +49,18 @@ public class FtlConfig {
     }
 
     public static FtlConfig getInstance() {
-        if (instance == null)
-            instance = new FtlConfig();
-        return instance;
+        return (instance == null)? new FtlConfig() : instance;
     }
 
-    public Configuration cfg() {
-        return cfg;
+    public Template getTemplate(String name) {
+        Template template = null;
+        try {
+             template = getInstance().cfg.getTemplate(name, ENCODING);
+        } catch (IOException e) {
+            LOG.error("Failed to get the freemarker template {}", name);
+            LOG.error(e.getMessage());
+            e.printStackTrace();
+        }
+        return template;
     }
 }
