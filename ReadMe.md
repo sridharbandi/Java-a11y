@@ -10,11 +10,22 @@ This project uses [HTML_CodeSniffer](https://squizlabs.github.io/HTML_CodeSniffe
 4. Rich Reporting
 5. Open source
 
-### Download
-Download the latest release from [https://github.com/sridharbandi/Java-a11y/releases](https://github.com/sridharbandi/Java-a11y/releases)
-
 ### Usage
-Download the jar from above mentioned link and add it to CLASSPATH for you Selenium Java project
+For maven based project add the below dependency
+```xml
+<dependency>
+  <groupId>io.github.sridharbandi</groupId>
+  <artifactId>java-a11y</artifactId>
+  <version>2.0-alpha-1</version>
+</dependency>
+```
+For gradle based project add the below dependency
+```
+compile 'io.github.sridharbandi:java-a11y:2.0-alpha-1'
+```
+For non gradle or maven project download the jar from below mentioned link and add it to CLASSPATH for your project
+
+https://github.com/sridharbandi/Java-a11y/releases
 
 ### Getting Started
 Make sure to enable logging capabilities to Webdriver. Below is the example for Chromedriver
@@ -140,7 +151,7 @@ Below are the report screenshots
 > I have tested this library only with Chromedriver.
 
 ### Todo
-1. Unit tests
+1. Remaining Unit tests
 
 
 
