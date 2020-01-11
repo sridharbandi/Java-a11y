@@ -23,10 +23,13 @@ package io.github.sridharbandi.util;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@ExtendWith(MockitoExtension.class)
 class DateUtilTest {
 
     @Test
