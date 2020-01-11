@@ -16,10 +16,10 @@ jacoco {
 
 ext {
     seleniumVersion = '3.141.59'
-    webdrivermanagerVersion = '3.2.0'
     freemarkerVersion = '2.3.29'
     jacksonVersion = '2.9.8'
     apachecommonsVersion = '1.6'
+    commonsVersion = '2.6'
     slf4jVersion = '1.8.0-beta2'
     junitVersion = '5.4.0'
     mockitoVersion = '3.2.4'
@@ -39,11 +39,11 @@ repositories {
 
 dependencies {
     compile "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
-    compile "io.github.bonigarcia:webdrivermanager:${webdrivermanagerVersion}"
     compile "org.freemarker:freemarker:${freemarkerVersion}"
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     compile "org.apache.commons:commons-text:${apachecommonsVersion}"
     compile "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    compile "commons-io:commons-io:${commonsVersion}"
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testCompile "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testCompile "org.mockito:mockito-core:${mockitoVersion}"

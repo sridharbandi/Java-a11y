@@ -44,12 +44,6 @@
         <slf4j.version>1.8.0-beta2</slf4j.version>
         <junit.version>5.4.0</junit.version>
         <mockito.verion>3.2.4</mockito.verion>
-        <webdrivermanager.version>3.2.0</webdrivermanager.version>
-        <mavenshadeplugin.version>3.2.1</mavenshadeplugin.version>
-        <nexusstagingplugin.version>1.6.7</nexusstagingplugin.version>
-        <gpgplugin.version>1.5</gpgplugin.version>
-        <javadocplugin.version>2.9.1</javadocplugin.version>
-        <mavensourceplugin.version>2.2.1</mavensourceplugin.version>
     </properties>
     <dependencies>
         <dependency>
