@@ -10,3 +10,4 @@
 /out/
 /build/
 .DS_Store
+/release-pom.xml
