@@ -25,7 +25,7 @@ compile 'io.github.sridharbandi:java-a11y:2.0-alpha-1'
 ```
 For non gradle or maven project download the jar from below mentioned link and add it to CLASSPATH for your project
 
-https://github.com/sridharbandi/Java-a11y/releases
+[https://github.com/sridharbandi/Java-a11y/releases](https://github.com/sridharbandi/Java-a11y/releases)
 
 ### Getting Started
 Make sure to enable logging capabilities to Webdriver. Below is the example for Chromedriver
