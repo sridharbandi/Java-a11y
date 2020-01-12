@@ -3,13 +3,15 @@
 
 This project uses [HTML_CodeSniffer](https://squizlabs.github.io/HTML_CodeSniffer/) that checks HTML source code and detects any Accessibility violations. Comes with standards that cover the three (A, AA & AAA) conformance levels of the W3C's Web Content Accessibility Guidelines (WCAG) 2.0 and the U.S. Section 508 legislation.
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.sridharbandi/java-a11y.svg)](http://search.maven.org/#search|ga|1|g:"io.github.sridharbandi"){:target="_blank"}
-[![badge-jdk](https://img.shields.io/badge/jdk-8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html){:target="_blank"}
-[![License badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT){:target="_blank"}
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.sridharbandi/java-a11y.svg)](http://search.maven.org/#search|ga|1|g:"io.github.sridharbandi")
+[![jdk badge](https://img.shields.io/badge/jdk-8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+[![License badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Contributer badge](https://img.shields.io/github/contributors/sridharbandi/Java-a11y.svg)](https://github.com/sridharbandi/Java-a11y/graphs/contributors)
+
 ### Features
 1. Simple & Easy to use
 2. No need of prior knowledge on Accessibility
-3. Works with Java Selenium [Webdriver](https://www.seleniumhq.org/projects/webdriver/){:target="_blank"}
+3. Works with Java Selenium [Webdriver](https://www.seleniumhq.org/projects/webdriver/)
 4. Rich Reporting
 5. Open source
 
