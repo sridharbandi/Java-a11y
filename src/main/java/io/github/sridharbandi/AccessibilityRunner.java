@@ -1,16 +1,16 @@
 /**
  * Copyright (c) 2019 Sridhar Bandi.
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,7 +32,10 @@ import io.github.sridharbandi.util.SaveJson;
 import io.github.sridharbandi.util.DateUtil;
 import io.github.sridharbandi.ftl.FtlConfig;
 import freemarker.template.Template;
+import io.github.sridharbandi.util.Standard;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +45,8 @@ import java.util.stream.Collectors;
 
 public class AccessibilityRunner extends Result implements IErrors, IWarnings, INotices {
 
+    private static Logger LOG = LoggerFactory.getLogger(AccessibilityRunner.class);
+
     private List<Issue> issueList;
     private Issues issues;
 
@@ -49,31 +54,36 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         super(driver);
     }
 
-    public void execute(){
+    public void execute() {
         execute(pageTitle());
     }
 
-    public void execute(String pageName){
+    public void execute(String pageName) {
+        LOG.info("Running Accessibility for {} page", pageName);
         executeScript();
         issueList = issueList();
         issues = getIssues(pageName);
         SaveJson.save(issues, pageName);
     }
 
-    public List<Issue> getIssueList(){
+    public void setStandard(Standard standard) {
+        Accessibility.STANDARD = standard;
+    }
+
+    public List<Issue> getIssueList() {
         return issueList;
     }
 
-    public Issues getIssues(){
+    public Issues getIssues() {
         return issues;
     }
 
-    private Issues getIssues(String reportName){
+    private Issues getIssues(String reportName) {
         Issues issues = new Issues();
         issues.setNotices(noticeCount());
         issues.setWarnings(warningCount());
         issues.setErrors(errorCount());
-        issues.setStandard(Accessibility.STANDARD);
+        issues.setStandard(Accessibility.STANDARD.name());
         issues.setUrl(url());
         issues.setDate(DateUtil.getDate());
         issues.setSize(viewPort());
@@ -100,10 +110,10 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         return getCount(issueList, IssueType.Warning);
     }
 
-    public void generateHtmlReport(){
+    public void generateHtmlReport() {
         Template tmplPage = FtlConfig.getInstance().getTemplate("page.ftl");
         List<Issues> allissues = jsonIssues();
-        for(Issues issues : allissues) {
+        for (Issues issues : allissues) {
             Map<String, Object> map = new HashMap<>();
             map.put("reportname", issues.getName());
             map.put("url", issues.getUrl());
@@ -121,7 +131,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
             map.put("warnings", warnings);
             List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Notice.name())).collect(Collectors.toList());
             map.put("notices", notices);
-            save(tmplPage, map,issues.getReportID());
+            save(tmplPage, map, issues.getReportID());
         }
 
         Template tmplIndex = FtlConfig.getInstance().getTemplate("index.ftl");
@@ -131,7 +141,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         map.put("errorscount", count(reportErrors(allissues)));
         map.put("warningscount", count(reportWarnings(allissues)));
         map.put("noticescount", count(reportNotices(allissues)));
-        map.put("urls",  reportUrls(allissues));
+        map.put("urls", reportUrls(allissues));
         map.put("errors", reportErrors(allissues));
         map.put("warnings", reportWarnings(allissues));
         map.put("notices", reportNotices(allissues));

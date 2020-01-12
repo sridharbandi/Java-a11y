@@ -110,6 +110,8 @@ public class Report extends DriverContext {
             tmpl.process(map, file);
             file.flush();
             file.close();
+            String loggerMsg = name.equalsIgnoreCase("index")?"Consoliated ":"Page ";
+            LOG.info(loggerMsg+"report generated at "+ report.getAbsolutePath());
         } catch (IOException e) {
             LOG.error("unable to write file: "+ path+"/"+name);
             e.printStackTrace();
