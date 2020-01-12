@@ -17,7 +17,7 @@ jacoco {
 ext {
     seleniumVersion = '3.141.59'
     freemarkerVersion = '2.3.29'
-    jacksonVersion = '2.9.8'
+    jacksonVersion = '2.10.1'
     apachecommonsVersion = '1.6'
     commonsVersion = '2.6'
     slf4jVersion = '1.8.0-beta2'
