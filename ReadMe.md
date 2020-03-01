@@ -135,7 +135,7 @@ Accessibility.STANDARD = Standard.WCAG2AA;
 //Or
 Accessibility.STANDARD = Standard.WCAG2A;
 //Or
-Accessibility.STANDARD = Standard.SECTION508;
+Accessibility.STANDARD = Standard.Section508;
 ```
 
 By default it will save reports under project root in `accessibility` folder. However you can configure it where to save
