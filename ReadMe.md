@@ -26,7 +26,7 @@ For maven based project add the below dependency
 ```
 For gradle based project add the below dependency
 ```
-compile 'io.github.sridharbandi:java-a11y:2.0-alpha-2'
+compile 'io.github.sridharbandi:java-a11y:2.1.1'
 ```
 For non gradle or maven project download the jar from below mentioned link and add it to CLASSPATH for your project
 
