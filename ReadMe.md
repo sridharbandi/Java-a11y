@@ -21,7 +21,7 @@ For maven based project add the below dependency
 <dependency>
   <groupId>io.github.sridharbandi</groupId>
   <artifactId>java-a11y</artifactId>
-  <version>2.0-alpha-2</version>
+  <version>2.1.1</version>
 </dependency>
 ```
 For gradle based project add the below dependency
