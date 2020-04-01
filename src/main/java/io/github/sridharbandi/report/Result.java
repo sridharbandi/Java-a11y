@@ -54,7 +54,7 @@ public class Result extends Report {
                 .map(issue -> {
                     Issue _issue = new Issue();
                     String[] arrIssue = issue.split("\\|");
-                    _issue.setIssueType(arrIssue[0].trim());
+                    _issue.setIssueType(Long.parseLong(arrIssue[0].trim()));
                     _issue.setIssueCode(arrIssue[1]);
                     _issue.setIssueTechniques(getIssueTechniques(arrIssue[1]));
                     _issue.setIssueTag(arrIssue[2]);

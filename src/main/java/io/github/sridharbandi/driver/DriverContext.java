@@ -23,6 +23,7 @@ package io.github.sridharbandi.driver;
 
 import io.github.sridharbandi.Accessibility;
 import io.github.sridharbandi.htmlcs.HTMLCS;
+import io.github.sridharbandi.modal.Issue;
 import io.github.sridharbandi.util.Statik;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
@@ -30,6 +31,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class DriverContext implements IDriverContext {
 
@@ -58,10 +64,29 @@ public class DriverContext implements IDriverContext {
     }
 
     @Override
-    public void executeScript() {
+    public List<Issue> executeScript() {
         waitForLoad();
-        javascriptExecutor.executeScript(htmlcs.getHTMLCS());
+        javascriptExecutor.executeScript(Statik.HTMLCS_SCRIPT);
+        waitForLoad();
         javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD.name()));
+        waitForLoad();
+        Object issuesObj =  javascriptExecutor.executeScript(Statik.HTMLCS_RESULTS);
+
+
+
+        List<Object> t_arraylist = new ArrayList<>((Collection<?>)issuesObj);
+
+
+        for (int i = 0; i < t_arraylist.size() ; i++) {
+            Object oo = t_arraylist.get(i);
+               // com.google.common.collect.Maps maps = com.google.common.collect.Maps.(oo.getClass());
+                System.out.println(oo.getClass());
+
+        }
+
+        List<Issue> issues = (List<Issue>) javascriptExecutor.executeScript(Statik.HTMLCS_RESULTS);
+        issues.forEach(issue -> System.out.println(issue.getIssueElement()));
+        return issues;
     }
 
     private void waitForLoad() {

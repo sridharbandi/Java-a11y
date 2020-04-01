@@ -21,6 +21,7 @@
  */
 package io.github.sridharbandi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.sridharbandi.issues.IErrors;
 import io.github.sridharbandi.issues.INotices;
 import io.github.sridharbandi.issues.IWarnings;
@@ -37,10 +38,9 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class AccessibilityRunner extends Result implements IErrors, IWarnings, INotices {
@@ -60,10 +60,31 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
 
     public void execute(String pageName) {
         LOG.info("Running Accessibility for {} page", pageName);
-        executeScript();
-        issueList = issueList();
+        issueList = executeScript();
+        //issueList = issueList();
         issues = getIssues(pageName);
         SaveJson.save(issues, pageName);
+    }
+
+    protected List<String> getIssueTechniques(String issueCode) {
+        Pattern pattern = Pattern.compile("([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)");
+        Matcher matcher = pattern.matcher(issueCode);
+        LinkedList<String> codes = new LinkedList<>();
+        while (matcher.find()) {
+            String match = matcher.group();
+            if (match.contains(",")) {
+                String[] techniques = match.split(",");
+                codes.addAll(Arrays.asList(techniques));
+            } else {
+                codes.add(match);
+            }
+        }
+        if (codes.size() != 0) {
+            codes.remove(0);
+        }
+        return codes.stream()
+                .map(code -> "https://www.w3.org/TR/WCAG20-TECHS/" + code)
+                .collect(Collectors.toList());
     }
 
     public void setStandard(Standard standard) {
@@ -97,17 +118,17 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
 
     @Override
     public int errorCount() {
-        return getCount(issueList, IssueType.Error);
+        return getCount(issueList, 1);
     }
 
     @Override
     public int noticeCount() {
-        return getCount(issueList, IssueType.Notice);
+        return getCount(issueList, 3);
     }
 
     @Override
     public int warningCount() {
-        return getCount(issueList, IssueType.Warning);
+        return getCount(issueList, 2);
     }
 
     public void generateHtmlReport() {
@@ -125,11 +146,11 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
             map.put("errorcount", issues.getErrors());
             map.put("warningcount", issues.getWarnings());
             map.put("noticecount", issues.getNotices());
-            List<Issue> errors = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Error.name())).collect(Collectors.toList());
+            List<Issue> errors = issues.getIssues().stream().filter(issue -> issue.getIssueType() == 1).collect(Collectors.toList());
             map.put("errors", errors);
-            List<Issue> warnings = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Warning.name())).collect(Collectors.toList());
+            List<Issue> warnings = issues.getIssues().stream().filter(issue -> issue.getIssueType() == 2).collect(Collectors.toList());
             map.put("warnings", warnings);
-            List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Notice.name())).collect(Collectors.toList());
+            List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType() == 3).collect(Collectors.toList());
             map.put("notices", notices);
             save(tmplPage, map, issues.getReportID());
         }
@@ -150,9 +171,9 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     }
 
 
-    private int getCount(List<Issue> issues, IssueType issueType) {
+    private int getCount(List<Issue> issues, int issueType) {
         List<Issue> filteredIssues = issues.stream()
-                .filter(issue -> issue.getIssueType().equalsIgnoreCase(issueType.name()))
+                .filter(issue -> issue.getIssueType() == issueType)
                 .collect(Collectors.toList());
         return filteredIssues.size();
     }
