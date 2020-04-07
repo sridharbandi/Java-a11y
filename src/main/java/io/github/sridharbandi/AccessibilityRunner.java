@@ -21,26 +21,25 @@
  */
 package io.github.sridharbandi;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import freemarker.template.Template;
+import io.github.sridharbandi.ftl.FtlConfig;
 import io.github.sridharbandi.issues.IErrors;
 import io.github.sridharbandi.issues.INotices;
 import io.github.sridharbandi.issues.IWarnings;
 import io.github.sridharbandi.modal.Issue;
 import io.github.sridharbandi.modal.Issues;
 import io.github.sridharbandi.report.Result;
-import io.github.sridharbandi.util.IssueType;
-import io.github.sridharbandi.util.SaveJson;
 import io.github.sridharbandi.util.DateUtil;
-import io.github.sridharbandi.ftl.FtlConfig;
-import freemarker.template.Template;
+import io.github.sridharbandi.util.SaveJson;
 import io.github.sridharbandi.util.Standard;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class AccessibilityRunner extends Result implements IErrors, IWarnings, INotices {
