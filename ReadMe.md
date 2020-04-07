@@ -21,12 +21,12 @@ For maven based project add the below dependency
 <dependency>
   <groupId>io.github.sridharbandi</groupId>
   <artifactId>java-a11y</artifactId>
-  <version>2.1.1</version>
+  <version>2.1.2</version>
 </dependency>
 ```
 For gradle based project add the below dependency
 ```
-compile 'io.github.sridharbandi:java-a11y:2.1.1'
+compile 'io.github.sridharbandi:java-a11y:2.1.2'
 ```
 For non gradle or maven project download the jar from below mentioned link and add it to CLASSPATH for your project
 
