@@ -47,7 +47,8 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
 
     private static Logger LOG = LoggerFactory.getLogger(AccessibilityRunner.class);
 
-    private List<Issue> issueList;
+    private List<Map<String, String>> issueList;
+    private List<Issue> processedIssues;
     private Issues issues;
 
     public AccessibilityRunner(WebDriver driver) {
@@ -61,30 +62,9 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     public void execute(String pageName) {
         LOG.info("Running Accessibility for {} page", pageName);
         issueList = executeScript();
-        //issueList = issueList();
+        processedIssues = issueList(issueList);
         issues = getIssues(pageName);
         SaveJson.save(issues, pageName);
-    }
-
-    protected List<String> getIssueTechniques(String issueCode) {
-        Pattern pattern = Pattern.compile("([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)");
-        Matcher matcher = pattern.matcher(issueCode);
-        LinkedList<String> codes = new LinkedList<>();
-        while (matcher.find()) {
-            String match = matcher.group();
-            if (match.contains(",")) {
-                String[] techniques = match.split(",");
-                codes.addAll(Arrays.asList(techniques));
-            } else {
-                codes.add(match);
-            }
-        }
-        if (codes.size() != 0) {
-            codes.remove(0);
-        }
-        return codes.stream()
-                .map(code -> "https://www.w3.org/TR/WCAG20-TECHS/" + code)
-                .collect(Collectors.toList());
     }
 
     public void setStandard(Standard standard) {
@@ -92,7 +72,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     }
 
     public List<Issue> getIssueList() {
-        return issueList;
+        return processedIssues;
     }
 
     public Issues getIssues() {
@@ -112,23 +92,23 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         issues.setBrowser(browserName());
         issues.setName(reportName.isEmpty() ? pageTitle() : reportName);
         issues.setReportID(UUID.randomUUID().toString().replace("-", ""));
-        issues.setIssues(issueList);
+        issues.setIssues(processedIssues);
         return issues;
     }
 
     @Override
     public int errorCount() {
-        return getCount(issueList, 1);
+        return getCount(processedIssues, 1);
     }
 
     @Override
     public int noticeCount() {
-        return getCount(issueList, 3);
+        return getCount(processedIssues, 3);
     }
 
     @Override
     public int warningCount() {
-        return getCount(issueList, 2);
+        return getCount(processedIssues, 2);
     }
 
     public void generateHtmlReport() {
