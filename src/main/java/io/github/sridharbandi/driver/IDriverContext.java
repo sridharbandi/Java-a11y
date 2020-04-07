@@ -21,16 +21,15 @@
  */
 package io.github.sridharbandi.driver;
 
-import io.github.sridharbandi.modal.Issue;
-
 import java.util.List;
+import java.util.Map;
 
 public interface IDriverContext {
 
     String pageTitle();
     long viewPortWidth();
     long viewPortHeight();
-    List<Issue> executeScript();
+    List<Map<String, String>> executeScript();
     String viewPort();
     String url();
     String device();

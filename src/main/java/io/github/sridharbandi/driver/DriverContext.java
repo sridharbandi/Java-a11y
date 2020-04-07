@@ -22,8 +22,6 @@
 package io.github.sridharbandi.driver;
 
 import io.github.sridharbandi.Accessibility;
-import io.github.sridharbandi.htmlcs.HTMLCS;
-import io.github.sridharbandi.modal.Issue;
 import io.github.sridharbandi.util.Statik;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
@@ -32,14 +30,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class DriverContext implements IDriverContext {
 
-    private HTMLCS htmlcs = HTMLCS.getInstance();
     private JavascriptExecutor javascriptExecutor;
     private WebDriver driver;
 
@@ -64,35 +58,25 @@ public class DriverContext implements IDriverContext {
     }
 
     @Override
-    public List<Issue> executeScript() {
+    public List<Map<String, String>> executeScript() {
         waitForLoad();
         javascriptExecutor.executeScript(Statik.HTMLCS_SCRIPT);
         waitForLoad();
         javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD.name()));
         waitForLoad();
-        Object issuesObj =  javascriptExecutor.executeScript(Statik.HTMLCS_RESULTS);
-
-
-
-        List<Object> t_arraylist = new ArrayList<>((Collection<?>)issuesObj);
-
-
-        for (int i = 0; i < t_arraylist.size() ; i++) {
-            Object oo = t_arraylist.get(i);
-               // com.google.common.collect.Maps maps = com.google.common.collect.Maps.(oo.getClass());
-                System.out.println(oo.getClass());
-
-        }
-
-        List<Issue> issues = (List<Issue>) javascriptExecutor.executeScript(Statik.HTMLCS_RESULTS);
-        issues.forEach(issue -> System.out.println(issue.getIssueElement()));
-        return issues;
+        List<Map<String, String>> issuesList = (ArrayList<Map<String, String>>) javascriptExecutor.executeScript(Statik.HTMLCS_RESULTS);
+        return issuesList;
     }
 
     private void waitForLoad() {
         ExpectedCondition<Boolean> pageLoadCondition = webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete");
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(pageLoadCondition);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
