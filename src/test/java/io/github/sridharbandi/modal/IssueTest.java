@@ -57,8 +57,8 @@ class IssueTest {
 
     @Test
     void testGetIssueType(){
-        issue.setIssueType("ERROR");
-        Assertions.assertEquals(issue.getIssueType(), "ERROR");
+        issue.setIssueType(1L);
+        Assertions.assertEquals(issue.getIssueType(), 1L);
     }
 
     @Test
