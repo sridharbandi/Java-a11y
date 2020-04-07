@@ -21,17 +21,16 @@
  */
 package io.github.sridharbandi;
 
+import freemarker.template.Template;
+import io.github.sridharbandi.ftl.FtlConfig;
 import io.github.sridharbandi.issues.IErrors;
 import io.github.sridharbandi.issues.INotices;
 import io.github.sridharbandi.issues.IWarnings;
 import io.github.sridharbandi.modal.Issue;
 import io.github.sridharbandi.modal.Issues;
 import io.github.sridharbandi.report.Result;
-import io.github.sridharbandi.util.IssueType;
-import io.github.sridharbandi.util.SaveJson;
 import io.github.sridharbandi.util.DateUtil;
-import io.github.sridharbandi.ftl.FtlConfig;
-import freemarker.template.Template;
+import io.github.sridharbandi.util.SaveJson;
 import io.github.sridharbandi.util.Standard;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -47,7 +46,8 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
 
     private static Logger LOG = LoggerFactory.getLogger(AccessibilityRunner.class);
 
-    private List<Issue> issueList;
+    private List<Map<String, String>> issueList;
+    private List<Issue> processedIssues;
     private Issues issues;
 
     public AccessibilityRunner(WebDriver driver) {
@@ -60,8 +60,8 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
 
     public void execute(String pageName) {
         LOG.info("Running Accessibility for {} page", pageName);
-        executeScript();
-        issueList = issueList();
+        issueList = executeScript();
+        processedIssues = issueList(issueList);
         issues = getIssues(pageName);
         SaveJson.save(issues, pageName);
     }
@@ -71,7 +71,7 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     }
 
     public List<Issue> getIssueList() {
-        return issueList;
+        return processedIssues;
     }
 
     public Issues getIssues() {
@@ -91,23 +91,23 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
         issues.setBrowser(browserName());
         issues.setName(reportName.isEmpty() ? pageTitle() : reportName);
         issues.setReportID(UUID.randomUUID().toString().replace("-", ""));
-        issues.setIssues(issueList);
+        issues.setIssues(processedIssues);
         return issues;
     }
 
     @Override
     public int errorCount() {
-        return getCount(issueList, IssueType.Error);
+        return getCount(processedIssues, 1);
     }
 
     @Override
     public int noticeCount() {
-        return getCount(issueList, IssueType.Notice);
+        return getCount(processedIssues, 3);
     }
 
     @Override
     public int warningCount() {
-        return getCount(issueList, IssueType.Warning);
+        return getCount(processedIssues, 2);
     }
 
     public void generateHtmlReport() {
@@ -125,11 +125,11 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
             map.put("errorcount", issues.getErrors());
             map.put("warningcount", issues.getWarnings());
             map.put("noticecount", issues.getNotices());
-            List<Issue> errors = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Error.name())).collect(Collectors.toList());
+            List<Issue> errors = issues.getIssues().stream().filter(issue -> issue.getIssueType() == 1).collect(Collectors.toList());
             map.put("errors", errors);
-            List<Issue> warnings = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Warning.name())).collect(Collectors.toList());
+            List<Issue> warnings = issues.getIssues().stream().filter(issue -> issue.getIssueType() == 2).collect(Collectors.toList());
             map.put("warnings", warnings);
-            List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType().equalsIgnoreCase(IssueType.Notice.name())).collect(Collectors.toList());
+            List<Issue> notices = issues.getIssues().stream().filter(issue -> issue.getIssueType() == 3).collect(Collectors.toList());
             map.put("notices", notices);
             save(tmplPage, map, issues.getReportID());
         }
@@ -150,9 +150,9 @@ public class AccessibilityRunner extends Result implements IErrors, IWarnings, I
     }
 
 
-    private int getCount(List<Issue> issues, IssueType issueType) {
+    private int getCount(List<Issue> issues, int issueType) {
         List<Issue> filteredIssues = issues.stream()
-                .filter(issue -> issue.getIssueType().equalsIgnoreCase(issueType.name()))
+                .filter(issue -> issue.getIssueType() == issueType)
                 .collect(Collectors.toList());
         return filteredIssues.size();
     }

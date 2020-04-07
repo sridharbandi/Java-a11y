@@ -24,7 +24,7 @@ package io.github.sridharbandi.modal;
 import java.util.List;
 
 public class Issue {
-    private String issueType;
+    private Long issueType;
     private String issueCode;
     private List<String> issueTechniques;
     private String issueTag;
@@ -40,11 +40,11 @@ public class Issue {
         this.issueTechniques = issueTechniques;
     }
 
-    public String getIssueType() {
+    public Long getIssueType() {
         return issueType;
     }
 
-    public void setIssueType(String issueType) {
+    public void setIssueType(Long issueType) {
         this.issueType = issueType;
     }
 

@@ -21,16 +21,14 @@
  */
 package io.github.sridharbandi.report;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.sridharbandi.modal.Issue;
-import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.logging.LogType;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -43,26 +41,13 @@ public class Result extends Report {
         this.driver = driver;
     }
 
-    protected List<Issue> issueList() {
-        LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
-        return logEntries.getAll().stream()
-                .map(LogEntry::getMessage)
-                .filter(str -> str.trim().contains("HTMLCS"))
-                .filter(str -> !str.endsWith("\"done\""))
-                .map(str -> str.split("HTMLCS\\]")[1])
-                .map(str -> str.substring(0, str.length() - 1))
-                .map(issue -> {
-                    Issue _issue = new Issue();
-                    String[] arrIssue = issue.split("\\|");
-                    _issue.setIssueType(arrIssue[0].trim());
-                    _issue.setIssueCode(arrIssue[1]);
-                    _issue.setIssueTechniques(getIssueTechniques(arrIssue[1]));
-                    _issue.setIssueTag(arrIssue[2]);
-                    _issue.setIssueId(arrIssue[3]);
-                    _issue.setIssueMsg(arrIssue[4]);
-                    _issue.setIssueElement(arrIssue.length < 6 ? "" : StringEscapeUtils.unescapeJava(arrIssue[5]));
-                    return _issue;
-                }).collect(Collectors.toList());
+    protected List<Issue> issueList(List<Map<String, String>> issueList) {
+        return issueList.stream().map(entry -> {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Issue issue = objectMapper.convertValue(entry, Issue.class);
+            issue.setIssueTechniques(getIssueTechniques(issue.getIssueCode()));
+            return issue;
+        }).collect(Collectors.toList());
     }
 
     protected List<String> getIssueTechniques(String issueCode) {
