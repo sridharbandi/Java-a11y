@@ -154,9 +154,6 @@ Below are the report screenshots
 
 Complete example : [https://github.com/sridharbandi/Java-a11y-example](https://github.com/sridharbandi/Java-a11y-example)
 
-> ### Note
-> I have tested this library only with Chromedriver.
-
 ### Todo
 1. Remaining Unit tests
 
