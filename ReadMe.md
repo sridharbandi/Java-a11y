@@ -11,7 +11,7 @@ This project uses [HTML_CodeSniffer](https://squizlabs.github.io/HTML_CodeSniffe
 ### Features
 1. Simple & Easy to use
 2. No need of prior knowledge on Accessibility
-3. Works with Java Selenium [Webdriver](https://www.seleniumhq.org/projects/webdriver/)
+3. Works with Java Selenium [Webdriver](https://www.selenium.dev/projects/)
 4. Rich Reporting
 5. Open source
 
@@ -28,7 +28,7 @@ For gradle based project add the below dependency
 ```
 compile 'io.github.sridharbandi:java-a11y:2.1.3'
 ```
-For non gradle or maven project download the jar from below mentioned link and add it to CLASSPATH for your project
+For non gradle/maven project download the jar from below mentioned link and add it to CLASSPATH for your project
 
 [https://github.com/sridharbandi/Java-a11y/releases](https://github.com/sridharbandi/Java-a11y/releases)
 
@@ -112,6 +112,7 @@ public class AccessibilityTest {
     @org.junit.jupiter.api.Test
     public void w3cschoolsTest() throws InterruptedException {
         driver.get("https://www.w3schools.com/");
+        //executes accessibility on W3 Schools home Page
         accessibilityRunner.execute();
     }
 
