@@ -61,21 +61,22 @@ Once after all the tests executed, you can call the below method to generate con
 accessibilityRunner.generateHtmlReport();
 ```
 
-This library can be used along with Junit, TestNG and Cucumber/JBehave
-Below is junit example with reporting
+This library can be used along with Junit, TestNG and Cucumber/JBehave.
+
+Below is junit example with reporting.
 
 ```java
 import AccessibilityRunner;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
+import io.github.sridharbandi.util.Standard;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -83,11 +84,11 @@ import java.util.logging.Level;
 /**
  * A sample test to demonstrate
  */
-public class io.github.sridharbandi.driver.Test {
+public class AccessibilityTest {
     private WebDriver driver;
     private static AccessibilityRunner accessibilityRunner;
 
-    @Before
+    @BeforeEach
     public void beforeTest() {
         ChromeDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -96,32 +97,32 @@ public class io.github.sridharbandi.driver.Test {
         chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
-        //Accessibility Runner Object
+        driver.manage().window().fullscreen();
         accessibilityRunner = new AccessibilityRunner(driver);
+        accessibilityRunner.setStandard(Standard.WCAG2AA);
     }
 
-    @org.junit.io.github.sridharbandi.driver.Test
+    @org.junit.jupiter.api.Test
     public void googleTest() throws InterruptedException {
         driver.get("https://www.google.co.uk/");
         //executes accessibility on Google Search Page
         accessibilityRunner.execute("Google");
     }
-    @org.junit.io.github.sridharbandi.driver.Test
+
+    @org.junit.jupiter.api.Test
     public void w3cschoolsTest() throws InterruptedException {
         driver.get("https://www.w3schools.com/");
-        //executes accessibility on W3Schools Page
         accessibilityRunner.execute();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
-         driver.quit();
+        driver.quit();
     }
 
-    @AfterClass
-    public static void generateReport(){
-         //Generated Consolidated HTML Report
-         accessibilityRunner.generateHtmlReport();
+    @AfterAll
+    public static void generateReport() {
+        accessibilityRunner.generateHtmlReport();
     }
 }
 
