@@ -24,6 +24,7 @@ package io.github.sridharbandi.driver;
 import io.github.sridharbandi.Accessibility;
 import io.github.sridharbandi.util.Statik;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -62,8 +63,14 @@ public class DriverContext implements IDriverContext {
         waitForLoad();
         javascriptExecutor.executeScript(Statik.HTMLCS_SCRIPT);
         waitForLoad();
-        javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD.name()));
-        waitForLoad();
+        for (int i = 0; i < 6; i++) {
+            try {
+                javascriptExecutor.executeScript(String.format(Statik.RUNNER, Accessibility.STANDARD.name()));
+                break;
+            } catch (JavascriptException exe) {
+                waitForLoad();
+            }
+        }
         List<Map<String, String>> issuesList = (ArrayList<Map<String, String>>) javascriptExecutor.executeScript(Statik.HTMLCS_RESULTS);
         return issuesList;
     }
