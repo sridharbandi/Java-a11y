@@ -22,6 +22,7 @@
 package io.github.sridharbandi.util;
 
 public class Statik {
+    public final static String HTMLCS_PATH = "vendor/HTMLCS.js";
     //HTMLCS Script
     public final static String HTMLCS_SCRIPT = "var script = document.createElement('script');\n" +
             "script.type = 'text/javascript';\n" +

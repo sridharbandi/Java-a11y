@@ -22,6 +22,7 @@
 package io.github.sridharbandi.driver;
 
 import io.github.sridharbandi.Accessibility;
+import io.github.sridharbandi.htmlcs.HTMLCS;
 import io.github.sridharbandi.util.Statik;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptException;
@@ -35,6 +36,7 @@ import java.util.*;
 
 public class DriverContext implements IDriverContext {
 
+    private HTMLCS htmlcs = HTMLCS.getInstance();
     private JavascriptExecutor javascriptExecutor;
     private WebDriver driver;
 
@@ -61,7 +63,7 @@ public class DriverContext implements IDriverContext {
     @Override
     public List<Map<String, String>> executeScript() {
         waitForLoad();
-        javascriptExecutor.executeScript(Statik.HTMLCS_SCRIPT);
+        javascriptExecutor.executeScript(htmlcs.getHTMLCS());
         waitForLoad();
         for (int i = 0; i < 6; i++) {
             try {
@@ -71,6 +73,7 @@ public class DriverContext implements IDriverContext {
                 waitForLoad();
             }
         }
+        waitForLoad();
         List<Map<String, String>> issuesList = (ArrayList<Map<String, String>>) javascriptExecutor.executeScript(Statik.HTMLCS_RESULTS);
         return issuesList;
     }
