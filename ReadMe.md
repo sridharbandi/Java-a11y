@@ -9,6 +9,7 @@
 
 **Deque Axe** : World’s leading digital accessibility toolkit. Powerful and accurate accessibility toolkit can get you to 80% issue coverage, or more, during development.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5325ede7836d4df39ecffc11ccfc1832)](https://app.codacy.com/gh/sridharbandi/Java-a11y?utm_source=github.com&utm_medium=referral&utm_content=sridharbandi/Java-a11y&utm_campaign=Badge_Grade_Settings)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sridharbandi/java-a11y.svg)](http://search.maven.org/#search|ga|1|g:"io.github.sridharbandi")
 [![jdk badge](https://img.shields.io/badge/jdk-8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
