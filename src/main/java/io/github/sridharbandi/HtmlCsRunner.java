@@ -15,10 +15,8 @@ public class HtmlCsRunner implements IRunner {
 
     private A11y a11y;
     private HTMLCS standard;
-    private WebDriver driver;
 
     public HtmlCsRunner(WebDriver driver) {
-        this.driver = driver;
         a11y = new A11y(driver);
     }
 
