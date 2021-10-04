@@ -21,37 +21,37 @@ import java.util.Map;
 public class Node {
 
     @JsonProperty("all")
-    private List<All> all = null;
+    private List<Checks> all = null;
     @JsonProperty("any")
-    private List<Any> any = null;
+    private List<Checks> any = null;
     @JsonProperty("html")
     private String html;
     @JsonProperty("impact")
     private Object impact;
     @JsonProperty("none")
-    private List<None> none = null;
+    private List<Checks> none = null;
     @JsonProperty("target")
     private List<String> target = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("all")
-    public List<All> getAll() {
+    public List<Checks> getAll() {
         return all;
     }
 
     @JsonProperty("all")
-    public void setAll(List<All> all) {
+    public void setAll(List<Checks> all) {
         this.all = all;
     }
 
     @JsonProperty("any")
-    public List<Any> getAny() {
+    public List<Checks> getAny() {
         return any;
     }
 
     @JsonProperty("any")
-    public void setAny(List<Any> any) {
+    public void setAny(List<Checks> any) {
         this.any = any;
     }
 
@@ -76,12 +76,12 @@ public class Node {
     }
 
     @JsonProperty("none")
-    public List<None> getNone() {
+    public List<Checks> getNone() {
         return none;
     }
 
     @JsonProperty("none")
-    public void setNone(List<None> none) {
+    public void setNone(List<Checks> none) {
         this.none = none;
     }
 
