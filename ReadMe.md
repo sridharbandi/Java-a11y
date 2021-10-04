@@ -1,7 +1,13 @@
 # Java-a11y
 ## Accessibility Automation for Web Apps with Java and Selenium Webdriver.
 
-This project uses [HTML_CodeSniffer](https://squizlabs.github.io/HTML_CodeSniffer/) that checks HTML source code and detects any Accessibility violations. Comes with standards that cover the three (A, AA & AAA) conformance levels of the W3C's Web Content Accessibility Guidelines (WCAG) 2.0 and the U.S. Section 508 legislation.
+>Note If you are using version 2.1.4 and below, refer [readme](/ReadMe_Pre.md)
+
+### This project uses [HTML CodeSniffer](https://squizlabs.github.io/HTML_CodeSniffer/) and [Deque Axe](https://www.deque.com/)
+
+**HTML CodeSniffer** : checks HTML source code and detects any Accessibility violations. Comes with standards that cover the three (A, AA & AAA) conformance levels of the W3C's Web Content Accessibility Guidelines (WCAG) 2.1 and the U.S. Section 508 legislation.
+
+**Deque Axe** : World’s leading digital accessibility toolkit. Powerful and accurate accessibility toolkit can get you to 80% issue coverage, or more, during development.
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sridharbandi/java-a11y.svg)](http://search.maven.org/#search|ga|1|g:"io.github.sridharbandi")
 [![jdk badge](https://img.shields.io/badge/jdk-8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
@@ -21,144 +27,196 @@ For maven based project add the below dependency
 <dependency>
   <groupId>io.github.sridharbandi</groupId>
   <artifactId>java-a11y</artifactId>
-  <version>2.1.4</version>
+  <version>3.0.0</version>
 </dependency>
 ```
 For gradle based project add the below dependency
 ```
-compile 'io.github.sridharbandi:java-a11y:2.1.4'
+compile 'io.github.sridharbandi:java-a11y:3.0.0'
 ```
 For non gradle/maven project download the jar from below mentioned link and add it to CLASSPATH for your project
 
 [https://github.com/sridharbandi/Java-a11y/releases](https://github.com/sridharbandi/Java-a11y/releases)
 
 ### Getting Started
-Make sure to enable logging capabilities to Webdriver is you are using the version `2.1.2` and below. Below is the example for Chromedriver
+#### Using HTML CodeSniffer
+Create object of `HtmlCsRunner` as below. `driver` will be your WebDriver instance.
 ```java
-ChromeOptions chromeOptions = new ChromeOptions();
-LoggingPreferences logPrefs = new LoggingPreferences();
-logPrefs.enable(LogType.BROWSER, Level.ALL);
-chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
-WebDriver driver = new ChromeDriver(chromeOptions);
-```
-
-This library is very easy to use. Create object of `AccessibilityRunner` as below
-```java
-AccessibilityRunner accessibilityRunner = new AccessibilityRunner(driver);
+HtmlCsRunner htmlCsRunner = new HtmlCsRunner(driver);;
 ```
 
 Once after you navigated to any page/popup with Selenium Webdriver execute Accessibility on that particular page/popup
 ```java
-accessibilityRunner.execute();
-//or you can pass report name
-accessibilityRunner.execute("Google");
+htmlCsRunner.execute();
 ```
 
 The above `execute` will also generate `JSON Report` on accessibility issues at page/popup level
 
 Once after all the tests executed, you can call the below method to generate consolidated `HTML Report` on accessibility issues
 ```java
-accessibilityRunner.generateHtmlReport();
+htmlCsRunner.generateHtmlReport();
 ```
-
-This library can be used along with Junit, TestNG and Cucumber/JBehave.
 
 Below is junit example with reporting.
 
 ```java
-import AccessibilityRunner;
+import freemarker.template.TemplateException;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.sridharbandi.util.Standard;
+import io.github.sridharbandi.HtmlCsRunner;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
 
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.time.Duration;
 
 /**
  * A sample test to demonstrate
  */
-public class AccessibilityTest {
+public class Example {
+
     private WebDriver driver;
-    private static AccessibilityRunner accessibilityRunner;
+    private static HtmlCsRunner htmlCsRunner;
 
     @BeforeEach
     public void beforeTest() {
         ChromeDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        LoggingPreferences logPrefs = new LoggingPreferences();
-        logPrefs.enable(LogType.BROWSER, Level.ALL);
-        chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
+        driver = new ChromeDriver();
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         driver.manage().window().fullscreen();
-        accessibilityRunner = new AccessibilityRunner(driver);
-        accessibilityRunner.setStandard(Standard.WCAG2AA);
-    }
+        htmlCsRunner = new HtmlCsRunner(driver);
 
-    @org.junit.jupiter.api.Test
-    public void googleTest() throws InterruptedException {
-        driver.get("https://www.google.co.uk/");
-        //executes accessibility on Google Search Page
-        accessibilityRunner.execute("Google");
-    }
-
-    @org.junit.jupiter.api.Test
-    public void w3cschoolsTest() throws InterruptedException {
-        driver.get("https://www.w3schools.com/");
-        //executes accessibility on W3 Schools home Page
-        accessibilityRunner.execute();
     }
 
     @AfterEach
-    public void tearDown() {
+    public void tearDown() throws TemplateException, IOException, URISyntaxException {
+        htmlCsRunner.execute();
         driver.quit();
     }
 
     @AfterAll
-    public static void generateReport() {
-        accessibilityRunner.generateHtmlReport();
+    public static void generateReport() throws IOException {
+        htmlCsRunner.generateHtmlReport();
+    }
+
+    @Test
+    public void googleTest() {
+        driver.get("https://www.google.com/");
+    }
+
+    @Test
+    public void stockTest() {
+        driver.get("https://www.istockphoto.com/");
     }
 }
-
 ```
 
-By default it will check against `WCAG2AA` standards. However you can configure it to standard you want to test with
+By default, it will check against `WCAG2AA` standards. However, you can configure it to standard you want to test with
 ```java
-Accessibility.STANDARD = Standard.WCAG2AAA;
-//Or
-Accessibility.STANDARD = Standard.WCAG2AA;
-//Or
-Accessibility.STANDARD = Standard.WCAG2A;
-//Or
-Accessibility.STANDARD = Standard.Section508;
+htmlCsRunner.setStandard(HTMLCS.WCAG2A);
 ```
 
-By default it will save reports under project root in `accessibility` folder. However you can configure it where to save
-```java
-Accessibility.REPORT_PATH =  System.getProperty("user.dir")+"/target/accessibility";
-```
+HTML Reports will be generated under `./target/java-a11y/htmlcs` folder.
 
-### Reports
 Below are the report screenshots
 
-#### Consolidated Report
-![Index](/readme/index.png)
+Consolidated Report
 
-#### Page Report
-![Page](/readme/page.png)
+![Index](/readme/htmlcs_index.png)
 
-Complete example : [https://github.com/sridharbandi/Java-a11y-example](https://github.com/sridharbandi/Java-a11y-example)
+Page Report
 
-### Todo
-1. Remaining Unit tests
+![Page](/readme/htmlcs_page.png)
 
+#### Using Deque Axe
+Create object of `AxeRunner` as below. `driver` will be your WebDriver instance.
+```java
+AxeRunner axeRunner = new AxeRunner(driver);;
+```
 
+Once after you navigated to any page/popup with Selenium Webdriver execute Accessibility on that particular page/popup
+```java
+axeRunner.execute();
+```
 
+The above `execute` will also generate `JSON Report` on accessibility issues at page/popup level
 
+Once after all the tests executed, you can call the below method to generate consolidated `HTML Report` on accessibility issues
+```java
+axeRunner.generateHtmlReport();
+```
+
+Below is junit example with reporting.
+
+```java
+import freemarker.template.TemplateException;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.sridharbandi.AxeRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.time.Duration;
+
+/**
+ * A sample test to demonstrate
+ */
+public class Example {
+
+    private WebDriver driver;
+    private static AxeRunner axeRunner;
+
+    @BeforeEach
+    public void beforeTest() {
+        ChromeDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().window().fullscreen();
+        axeRunner = new AxeRunner(driver);
+
+    }
+
+    @AfterEach
+    public void tearDown() throws TemplateException, IOException, URISyntaxException {
+        axeRunner.execute();
+        driver.quit();
+    }
+
+    @AfterAll
+    public static void generateReport() throws IOException {
+        axeRunner.generateHtmlReport();
+    }
+
+    @Test
+    public void googleTest() {
+        driver.get("https://www.google.com/");
+    }
+
+    @Test
+    public void stockTest() {
+        driver.get("https://www.istockphoto.com/");
+    }
+
+}
+```
+
+HTML Reports will be generated under `./target/java-a11y/axe` folder.
+
+Below are the report screenshots
+
+Consolidated Report
+
+![Index](/readme/axe_index.png)
+
+Page Report
+
+![Page](/readme/axe_page.png)
