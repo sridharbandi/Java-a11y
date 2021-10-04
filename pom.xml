@@ -44,6 +44,9 @@
         <jackson.version>2.12.1</jackson.version>
         <commonsio.version>2.11.0</commonsio.version>
         <surefire.version>3.0.0-M5</surefire.version>
+
+        <sonar.organization>sridharbandi</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
