@@ -8,6 +8,7 @@
 **HTML CodeSniffer** : checks HTML source code and detects any Accessibility violations. Comes with standards that cover the three (A, AA & AAA) conformance levels of the W3C's Web Content Accessibility Guidelines (WCAG) 2.1 and the U.S. Section 508 legislation.
 
 **Deque Axe** : World’s leading digital accessibility toolkit. Powerful and accurate accessibility toolkit can get you to 80% issue coverage, or more, during development.
+
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sridharbandi/java-a11y.svg)](http://search.maven.org/#search|ga|1|g:"io.github.sridharbandi")
 [![jdk badge](https://img.shields.io/badge/jdk-8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
