@@ -37,6 +37,10 @@ public class A11y {
         javascriptExecutor = (JavascriptExecutor) driver;
     }
 
+    public A11y(){
+
+    }
+
     public void execute(Engine engine, String standard) throws URISyntaxException, IOException, TemplateException {
         waitForLoad();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("js/" + engine.toString().toLowerCase() + ".js");
