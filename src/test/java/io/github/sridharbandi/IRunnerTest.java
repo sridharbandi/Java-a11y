@@ -24,6 +24,7 @@ public class IRunnerTest {
 
         @Override
         public void execute() {
+            throw new RuntimeException("Not implemented for tests");
         }
 
         @Override

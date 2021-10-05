@@ -37,8 +37,7 @@ public class A11y {
         javascriptExecutor = (JavascriptExecutor) driver;
     }
 
-    public A11y(){
-
+    public A11y() {
     }
 
     public void execute(Engine engine, String standard) throws URISyntaxException, IOException, TemplateException {
@@ -81,7 +80,7 @@ public class A11y {
         Path path = null;
         File report = null;
         try {
-            path = Paths.get("./target/java-a11y/" + engine.toString().toLowerCase() + "/html");
+            path = get("./target/java-a11y/" + engine.toString().toLowerCase() + "/html");
             createDirectories(path);
             report = new File(path + File.separator + name + ".html");
             Writer file = new FileWriter(report);
