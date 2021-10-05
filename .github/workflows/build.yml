@@ -22,9 +22,9 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Unit tests
-          run: mvn clean test
+        run: mvn clean test
       - name: Codacy Coverage
-          uses: codacy/codacy-coverage-reporter-action@v1
-          with:
-            project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-            coverage-reports: target/jacoco.xml
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: target/jacoco.xml
