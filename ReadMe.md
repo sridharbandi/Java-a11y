@@ -11,6 +11,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sridharbandi/java-a11y.svg)](http://search.maven.org/#search|ga|1|g:"io.github.sridharbandi")
 [![jdk badge](https://img.shields.io/badge/jdk-8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8b32dbe54c8d4b5e902390926e8b0d46)](https://www.codacy.com/gh/sridharbandi/Java-a11y/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sridharbandi/Java-a11y&amp;utm_campaign=Badge_Grade)
 [![License badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Contributer badge](https://img.shields.io/github/contributors/sridharbandi/Java-a11y.svg)](https://github.com/sridharbandi/Java-a11y/graphs/contributors)
 

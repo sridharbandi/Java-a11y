@@ -43,10 +43,12 @@
         <selenium.version>4.0.0-rc-2</selenium.version>
         <jackson.version>2.12.1</jackson.version>
         <commonsio.version>2.11.0</commonsio.version>
+        <annotation.version>1.3.2</annotation.version>
         <surefire.version>3.0.0-M5</surefire.version>
 
         <sonar.organization>sridharbandi</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.jacoco.reportPaths>${project.basedir}</sonar.jacoco.reportPaths>
     </properties>
 
     <dependencies>
@@ -78,7 +80,7 @@
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
+            <version>${annotation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -99,6 +101,31 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <configuration>
+                    <excludes>
+                        <exclude>io/github/sridharbandi/modal/**/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
