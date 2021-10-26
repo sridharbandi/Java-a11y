@@ -50,9 +50,40 @@ public class A11y {
         write(path, strResponse.getBytes(StandardCharsets.UTF_8));
     }
 
+    public void execute(Engine engine, String standard, String pageName) throws URISyntaxException, IOException, TemplateException {
+        waitForLoad();
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("js/" + engine.toString().toLowerCase() + ".js");
+        String js = IOUtils.toString(in, StandardCharsets.UTF_8);
+        String script = engine.name().equalsIgnoreCase("axe") ? "return axeData();" + js : "return getData('" + standard + "');" + js;
+        Object issues = javascriptExecutor.executeScript(script);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String strResponse = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(issues);
+        Path path = get("./target/java-a11y/" + engine.toString().toLowerCase() + "/json/" + pageName + ".json");
+        createDirectories(path.getParent());
+        write(path, strResponse.getBytes(StandardCharsets.UTF_8));
+    }
+
     private void waitForLoad() {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(wd -> javascriptExecutor.executeScript("return document.readyState").equals("complete"));
+    }
+
+    public List<?> jsonPageReport(Engine engine, Class<?> clazz, String pageName) throws IOException {
+        return walk(get("./target/java-a11y/" + engine.toString().toLowerCase() + "/json/" + pageName + ".json"))
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .filter(file -> FilenameUtils.getExtension(file.getName()).equalsIgnoreCase("json"))
+                .map(file -> {
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        return mapper.readValue(file, clazz);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        LOG.error("Failed to read json file {}", file.getAbsolutePath());
+                    }
+                    return null;
+                })
+                .collect(Collectors.toList());
     }
 
     public List<?> jsonReports(Engine engine, Class<?> clazz) throws IOException {

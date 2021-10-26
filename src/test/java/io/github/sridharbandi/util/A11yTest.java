@@ -1,9 +1,13 @@
 package io.github.sridharbandi.util;
 
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
+import io.github.sridharbandi.HtmlCsRunner;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.a11y.HTMLCS;
 import io.github.sridharbandi.ftl.FtlConfig;
+import io.github.sridharbandi.modal.htmlcs.Issue;
 import io.github.sridharbandi.modal.htmlcs.Issues;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +19,16 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,6 +44,8 @@ public class A11yTest {
     JavascriptExecutor javascriptExecutor;
     @Mock
     WebDriver driver;
+    @Mock
+    HtmlCsRunner htmlCsRunner;
     @InjectMocks
     A11y a11y = new A11y(driver);
 
@@ -60,5 +70,30 @@ public class A11yTest {
         a11y.save(template, map, "page", Engine.HTMLCS);
         Path path = Paths.get("./target/java-a11y/htmlcs/html/page.html");
         assertTrue(FileUtils.deleteQuietly(path.toFile()));
+    }
+
+    @Test
+    public void jsonTest() throws IOException, TemplateException, URISyntaxException {
+        ChromeDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().window().fullscreen();
+        htmlCsRunner = new HtmlCsRunner(driver);
+        htmlCsRunner.setStandard(HTMLCS.WCAG2AA);
+        driver.get("https://www.google.com/");
+        htmlCsRunner.execute("Google Test");
+        boolean flag = htmlCsRunner.pageHasErrors("Google Test");
+        System.out.println(flag);
+        String[] array = {"WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center", "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail"};
+        htmlCsRunner.setCodesToIgnore(array);
+        htmlCsRunner.generateHtmlReport();
+        /*List<Issues> report = (List<Issues>) htmlCsRunner.getPageIssues("Google Test");
+        System.out.println(report.size());
+        report.forEach(page -> {
+            page.getResults().forEach(result -> {
+                System.out.println(result.getCode());
+            });
+        });*/
+        driver.quit();
     }
 }
