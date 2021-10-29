@@ -19,6 +19,43 @@ import java.util.concurrent.atomic.AtomicInteger;
 public interface IRunner {
     void execute() throws IOException, URISyntaxException, TemplateException;
 
+    default List<?> removeIssues(List<?> reportList, String[] codesToIgnore) {
+        //Remove all issuesToIgnore if there are any.
+        reportList.forEach(page -> {
+            List<Issue> issues = ((io.github.sridharbandi.modal.htmlcs.Issues) page).getResults();
+            List<Issue> issuesToRemove = new ArrayList<Issue>();
+            AtomicInteger errorsToRemove = new AtomicInteger();
+            AtomicInteger warningsToRemove = new AtomicInteger();
+            AtomicInteger noticeToRemove = new AtomicInteger();
+            issues.forEach(issue -> {
+                for (String issueToIgnore : codesToIgnore) {
+                    if (issue.getCode().contains(issueToIgnore)) {
+                        switch (issue.getType()) {
+                            case 1:
+                                errorsToRemove.addAndGet(1);
+                                break;
+                            case 2:
+                                warningsToRemove.addAndGet(1);
+                                break;
+                            default:
+                                noticeToRemove.addAndGet(1);
+                        }
+                        issuesToRemove.add(issue);
+                        break;
+                    }
+                }
+            });
+            issues.removeAll(issuesToRemove);
+            ((io.github.sridharbandi.modal.htmlcs.Issues) page).setErrors(((io.github.sridharbandi.modal.htmlcs.Issues)
+                    page).getErrors() - errorsToRemove.get());
+            ((io.github.sridharbandi.modal.htmlcs.Issues) page).setWarnings(((io.github.sridharbandi.modal.htmlcs
+                    .Issues) page).getWarnings() - warningsToRemove.get());
+            ((io.github.sridharbandi.modal.htmlcs.Issues) page).setNotices(((io.github.sridharbandi.modal.htmlcs.Issues)
+                    page).getNotices() - noticeToRemove.get());
+        });
+        return reportList;
+    }
+
     //Only supports HTMLCsRunner Right now.
     default void generateHtmlReport(A11y a11y, Engine engine, Class<?> clazz, String[] issuesToIgnore) throws IOException {
         Template tmplIndex = FtlConfig.getInstance().getTemplate(engine.name().toLowerCase() + "/index.ftl");
@@ -27,39 +64,7 @@ public interface IRunner {
 
         //Remove all issuesToIgnore if there are any.
         if (issuesToIgnore.length > 0) {
-            reportList.forEach(page -> {
-                List<Issue> issues = ((io.github.sridharbandi.modal.htmlcs.Issues) page).getResults();
-                List<Issue> issuesToRemove = new ArrayList<Issue>();
-                AtomicInteger errorsToRemove = new AtomicInteger();
-                AtomicInteger warningsToRemove = new AtomicInteger();
-                AtomicInteger noticeToRemove = new AtomicInteger();
-                issues.forEach(issue -> {
-                    for (String issueToIgnore : issuesToIgnore) {
-                        if (issue.getCode().contains(issueToIgnore)) {
-                            switch (issue.getType()) {
-                                case 1:
-                                    errorsToRemove.addAndGet(1);
-                                    break;
-                                case 2:
-                                    warningsToRemove.addAndGet(1);
-                                    break;
-                                default:
-                                    noticeToRemove.addAndGet(1);
-                            }
-                            System.out.println(issue.getType());
-                            issuesToRemove.add(issue);
-                            break;
-                        }
-                    }
-                });
-                issues.removeAll(issuesToRemove);
-                ((io.github.sridharbandi.modal.htmlcs.Issues) page).setErrors(((io.github.sridharbandi.modal.htmlcs.Issues)
-                        page).getErrors() - errorsToRemove.get());
-                ((io.github.sridharbandi.modal.htmlcs.Issues) page).setWarnings(((io.github.sridharbandi.modal.htmlcs
-                        .Issues) page).getWarnings() - warningsToRemove.get());
-                ((io.github.sridharbandi.modal.htmlcs.Issues) page).setNotices(((io.github.sridharbandi.modal.htmlcs.Issues)
-                        page).getNotices() - noticeToRemove.get());
-            });
+            reportList = removeIssues(reportList, issuesToIgnore);
         }
 
         reportList.forEach(issues -> {

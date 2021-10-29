@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -84,16 +85,27 @@ public class A11yTest {
         htmlCsRunner.execute("Google Test");
         boolean flag = htmlCsRunner.pageHasErrors("Google Test");
         System.out.println(flag);
-        String[] array = {"WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center", "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail"};
+        String[] array = {"WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center", "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail", "WCAG2AA.Principle1.Guideline1_3.1_3_1.F68"};
         htmlCsRunner.setCodesToIgnore(array);
         htmlCsRunner.generateHtmlReport();
-        /*List<Issues> report = (List<Issues>) htmlCsRunner.getPageIssues("Google Test");
-        System.out.println(report.size());
-        report.forEach(page -> {
-            page.getResults().forEach(result -> {
-                System.out.println(result.getCode());
-            });
-        });*/
+        driver.quit();
+    }
+
+    @Test
+    public void hasErrorsTest() throws IOException, TemplateException, URISyntaxException {
+        ChromeDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().window().fullscreen();
+        htmlCsRunner = new HtmlCsRunner(driver);
+        htmlCsRunner.setStandard(HTMLCS.WCAG2AA);
+        driver.get("https://www.google.com/");
+        htmlCsRunner.execute("Google Test");
+        String[] array = {"WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center", "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail"};
+        htmlCsRunner.setCodesToIgnore(array);
+        boolean flag = htmlCsRunner.pageHasErrors("Google Test");
+        System.out.println(flag);
+        assertFalse(flag);
         driver.quit();
     }
 }

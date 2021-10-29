@@ -3,16 +3,21 @@ package io.github.sridharbandi;
 import freemarker.template.TemplateException;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.a11y.HTMLCS;
+import io.github.sridharbandi.modal.htmlcs.Issue;
 import io.github.sridharbandi.modal.htmlcs.Issues;
 import io.github.sridharbandi.util.A11y;
 import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class HtmlCsRunner implements IRunner {
 
@@ -24,6 +29,10 @@ public class HtmlCsRunner implements IRunner {
     public HtmlCsRunner(WebDriver driver) {
         this.driver = driver;
         a11y = new A11y(driver);
+    }
+
+    public interface flagCheck<Issues> {
+        boolean findFlag(Issues issues);
     }
 
     public void setCodesToIgnore(String[] ignoreCodes) {
@@ -61,74 +70,56 @@ public class HtmlCsRunner implements IRunner {
         return a11y.jsonPageReport(Engine.HTMLCS, Issues.class, pageName);
     }
 
-    public boolean hasErrors() throws IOException {
-        List<?> issues = getIssues();
-        AtomicBoolean flag = new AtomicBoolean(false);
-        for (Object issue : issues) {
-            if (((Issues) issues).getErrors() > 0) {
-                flag.set(true);
-                break;
-            }
-        }
-        return flag.get();
+    public boolean hasErrors(Issues page) {
+        return page.getErrors() > 0;
     }
 
-    public boolean hasWarnings() throws IOException {
-        List<?> issues = getIssues();
-        AtomicBoolean flag = new AtomicBoolean(false);
-        for (Object issue : issues) {
-            if (((Issues) issues).getWarnings() > 0) {
-                flag.set(true);
-                break;
-            }
-        }
-        return flag.get();
+    public boolean hasWarnings(Issues page) {
+        return page.getWarnings() > 0;
     }
 
-    public boolean hasNotices() throws IOException {
-        List<?> issues = getIssues();
-        AtomicBoolean flag = new AtomicBoolean(false);
-        for (Object issue : issues) {
-            if (((Issues) issues).getNotices() > 0) {
-                flag.set(true);
-                break;
-            }
-        }
-        return flag.get();
+    public boolean hasNotices(Issues page) {
+        return page.getNotices() > 0;
     }
 
     public boolean pageHasErrors(String pageName) throws IOException {
-        List<Issues> issues = (List<Issues>) getPageIssues(pageName);
-        AtomicBoolean flag = new AtomicBoolean(false);
-        for (Issues issue : issues) {
-            if (issue.getErrors() > 0) {
-                flag.set(true);
-                break;
-            }
-        }
-        return flag.get();
+        return checkFlagged(pageName, 1);
     }
 
     public boolean pageHasWarnings(String pageName) throws IOException {
-        List<Issues> issues = (List<Issues>) getPageIssues(pageName);
-        AtomicBoolean flag = new AtomicBoolean(false);
-        for (Issues issue : issues) {
-            if (issue.getWarnings() > 0) {
-                flag.set(true);
-                break;
-            }
-        }
-        return flag.get();
+        return checkFlagged(pageName, 2);
     }
 
     public boolean pageHasNotices(String pageName) throws IOException {
-        List<Issues> issues = (List<Issues>) getPageIssues(pageName);
-        AtomicBoolean flag = new AtomicBoolean(false);
-        for (Issues issue : issues) {
-            if (issue.getNotices() > 0) {
-                flag.set(true);
-                break;
+        return checkFlagged(pageName, 3);
+    }
+
+    private boolean checkFlagged(String pageName, int type) throws IOException {
+        List<?> reportList = getPageIssues(pageName);
+        if (codesToIgnore != null) {
+            reportList = removeIssues(reportList, codesToIgnore);
+        }
+        //There should only be one page.
+        AtomicBoolean flag = new AtomicBoolean();
+        int count = 1;
+        for (Object page : reportList) {
+            //Make sure only evaluating one page. If this fails something is wrong.
+            if (count > 1) {
+                System.out.println("FAILED REEVALUATE");
+                flag.set(false);
+                return flag.get();
             }
+            switch (type) {
+                case 1:
+                    flag.set(hasErrors((Issues) page));
+                    break;
+                case 2:
+                    flag.set(hasWarnings((Issues) page));
+                    break;
+                default:
+                     flag.set(hasNotices((Issues) page));
+            };
+            count = count+1;
         }
         return flag.get();
     }
