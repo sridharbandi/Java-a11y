@@ -1,6 +1,5 @@
 package io.github.sridharbandi.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.a11y.HTMLCS;

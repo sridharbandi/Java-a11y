@@ -1,6 +1,5 @@
 package io.github.sridharbandi;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.a11y.HTMLCS;
 import io.github.sridharbandi.modal.htmlcs.Params;
@@ -10,13 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.WebDriver;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
