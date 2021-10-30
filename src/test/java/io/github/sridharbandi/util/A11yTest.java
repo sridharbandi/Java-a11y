@@ -1,10 +1,12 @@
 package io.github.sridharbandi.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.a11y.HTMLCS;
 import io.github.sridharbandi.ftl.FtlConfig;
 import io.github.sridharbandi.modal.htmlcs.Issues;
+import io.github.sridharbandi.modal.htmlcs.Params;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +49,9 @@ public class A11yTest {
     @Test
     public void testExecute() throws Exception {
         when(javascriptExecutor.executeScript("return document.readyState")).thenReturn("complete");
-        a11y.execute(Engine.HTMLCS, HTMLCS.WCAG2AA.name());
+        Params params = new Params();
+        params.setStandard(HTMLCS.WCAG2AA.name());
+        a11y.execute(Engine.HTMLCS, params);
         a11y.jsonReports(Engine.HTMLCS, Issues.class);
         assertTrue(FileUtils.deleteQuietly(Objects.requireNonNull(new File("./target/java-a11y/htmlcs/json").listFiles())[0]));
     }

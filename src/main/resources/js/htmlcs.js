@@ -1,11 +1,14 @@
-async function getData(standard) {
+async function getData(params) {
+    const obj = JSON.parse(params);
+    const codes = obj.ignoreCodes;
+
     await injectScript();
-    var results = await runHtmlCS(standard)
+    const results = await runHtmlCS(obj.standard, codes);
     return {
         errors: resultsCount(results, 1),
         warnings: resultsCount(results, 2),
         notices: resultsCount(results, 3),
-        standard: standard,
+        standard: obj.standard,
         date: getFormattedDate(),
         dimension: window.innerWidth + ' X ' + window.innerHeight,
         url: window.location.href,
@@ -22,8 +25,8 @@ function resultsCount(results, type) {
 }
 
 function getFormattedDate() {
-    var date = new Date();
-    var formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    const date = new Date();
+    const formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     return formattedDate;
 }
 
@@ -37,13 +40,13 @@ function injectScript() {
     });
 }
 
-function runHtmlCS(standard) {
+function runHtmlCS(standard, codes) {
     return new Promise(function (resolve, reject) {
         window.HTMLCS.process(standard, window.document, function (error) {
             if (error) {
                 return reject(error);
             }
-            resolve(window.HTMLCS.getMessages().map(processIssue));
+            resolve(window.HTMLCS.getMessages().filter(item => !codes.includes(item.code)).map(processIssue));
         });
     });
 }
@@ -61,8 +64,8 @@ function processIssue(issue) {
 
 function techniques(code) {
     if (code.includes('Section508')) {
-        var split = code.split('.', 3);
-        var para = split[1].toLowerCase();
+        const split = code.split('.', 3);
+        const para = split[1].toLowerCase();
         return ['1194.22 (' + para + ')'];
     }
     let result = code.match(/([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)/g) || [];
@@ -104,9 +107,9 @@ function linkTechnique(technique) {
 }
 
 function htmlElement(ele) {
-    var a = "";
+    let a = "";
     if (ele.outerHTML) {
-        var o = ele.cloneNode(!0);
+        const o = ele.cloneNode(!0);
         o.innerHTML = "...";
         a = o.outerHTML
     }
@@ -115,7 +118,7 @@ function htmlElement(ele) {
 
 function getBrowser() {
     const userAgent = navigator.userAgent;
-    var browser = "Unkown";
+    let browser = "Unkown";
     // Detect browser name
     browser = (/ucbrowser/i).test(userAgent) ? 'UCBrowser' : browser;
     browser = (/edg/i).test(userAgent) ? 'Edge' : browser;
@@ -160,7 +163,7 @@ function browserVersion(userAgent, regex) {
 }
 
 function device() {
-    var width = window.innerWidth;
+    const width = window.innerWidth;
     if (width < 768) {
         return 'Phone';
     } else if (width < 992) {

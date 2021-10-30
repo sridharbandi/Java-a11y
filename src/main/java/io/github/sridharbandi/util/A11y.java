@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import io.github.sridharbandi.a11y.Engine;
+import io.github.sridharbandi.modal.htmlcs.Params;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.openqa.selenium.JavascriptExecutor;
@@ -39,11 +40,16 @@ public class A11y {
     public A11y() {
     }
 
-    public void execute(Engine engine, String standard) throws URISyntaxException, IOException, TemplateException {
+    public void execute(Engine engine, Params params) throws URISyntaxException, IOException, TemplateException {
         waitForLoad();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("js/" + engine.toString().toLowerCase() + ".js");
         String js = IOUtils.toString(in, StandardCharsets.UTF_8);
-        String script = engine.name().equalsIgnoreCase("axe") ? "return axeData();" + js : "return getData('" + standard + "');" + js;
+        String strJson = "";
+        if (engine.name().equals(Engine.HTMLCS.name())) {
+            ObjectMapper mapper = new ObjectMapper();
+            strJson = mapper.writeValueAsString(params);
+        }
+        String script = engine.name().equalsIgnoreCase("axe") ? "return axeData();" + js : "return getData('" + strJson + "');" + js;
         Object issues = javascriptExecutor.executeScript(script);
         ObjectMapper objectMapper = new ObjectMapper();
         String strResponse = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(issues);
