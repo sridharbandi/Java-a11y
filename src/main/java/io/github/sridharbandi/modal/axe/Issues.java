@@ -55,31 +55,31 @@ public class Issues {
     @JsonProperty("url")
     private String url;
     @JsonProperty("violations")
-    private List<Violation> violations = null;
+    private List<IssueType> violations = null;
     @JsonProperty("inapplicable")
-    private List<Inapplicable> inapplicable = null;
+    private List<IssueType> inapplicable = null;
     @JsonProperty("incomplete")
-    private List<Incomplete> incomplete = null;
+    private List<IssueType> incomplete = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("inapplicable")
-    public List<Inapplicable> getInapplicable() {
+    public List<IssueType> getInapplicable() {
         return inapplicable;
     }
 
     @JsonProperty("inapplicable")
-    public void setInapplicable(List<Inapplicable> inapplicable) {
+    public void setInapplicable(List<IssueType> inapplicable) {
         this.inapplicable = inapplicable;
     }
 
     @JsonProperty("incomplete")
-    public List<Incomplete> getIncomplete() {
+    public List<IssueType> getIncomplete() {
         return incomplete;
     }
 
     @JsonProperty("incomplete")
-    public void setIncomplete(List<Incomplete> incomplete) {
+    public void setIncomplete(List<IssueType> incomplete) {
         this.incomplete = incomplete;
     }
 
@@ -204,12 +204,12 @@ public class Issues {
     }
 
     @JsonProperty("violations")
-    public List<Violation> getViolations() {
+    public List<IssueType> getViolations() {
         return violations;
     }
 
     @JsonProperty("violations")
-    public void setViolations(List<Violation> violations) {
+    public void setViolations(List<IssueType> violations) {
         this.violations = violations;
     }
 

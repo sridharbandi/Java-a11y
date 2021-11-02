@@ -7,7 +7,6 @@ async function axeData() {
     results.device = device();
     results.browser = getBrowser();
     results.date = getFormattedDate();
-    console.log(results);
     return results;
 }
 
