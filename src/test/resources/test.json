@@ -1,0 +1,22 @@
+{
+  "browser" : "Chrome 999999",
+  "date" : "9/90/9099 99:99:9",
+  "device" : "Laptop/Desktop",
+  "dimension" : "1200 X 550",
+  "errors" : 9,
+  "id" : "id_javaa11y",
+  "notices" : 99,
+  "results" : [
+   {
+    "code" : "WCAG2AA.Principlex.",
+    "element" : "",
+    "msg" : "This is a test message",
+    "tag" : "#document",
+    "techniques" : [ ],
+    "type" : 9
+  } ],
+  "standard" : "WCAG2AA",
+  "title" : "Java A11y",
+  "url" : "https://www.sridharbandi.com/",
+  "warnings" : 9
+}
