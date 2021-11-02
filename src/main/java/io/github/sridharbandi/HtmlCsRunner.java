@@ -31,10 +31,6 @@ public class HtmlCsRunner implements IRunner {
         a11y = new A11y(driver);
     }
 
-    public interface flagCheck<Issues> {
-        boolean findFlag(Issues issues);
-    }
-
     public void setCodesToIgnore(String[] ignoreCodes) {
         codesToIgnore = ignoreCodes;
     }
