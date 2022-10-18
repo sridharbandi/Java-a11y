@@ -45,7 +45,7 @@
                                aria-selected="<#if status?is_first>true<#else>false</#if>">${status?cap_first}
                                 &nbsp;<span
                                         class="badge badge-${colorMap['${status}']}">
-                               <#assign type=results[key]?filter(x -> x.impact == '${status}') count=0>
+                               <#assign type=results[key]?filter(x -> x.impact??)?filter(x -> x.impact == '${status}') count=0>
                                     <#list type as item>
                                         <#assign count += item.nodes?size>
                                     </#list>
@@ -59,7 +59,7 @@
                         <div class="tab-pane fade <#if issueType?is_first>show active</#if>" id="${key}${issueType}"
                              role="tabpanel"
                              aria-labelledby="${key}${issueType}-tab">
-                            <#list results[key]?filter(x -> x.impact == issueType) as issues>
+                            <#list results[key]?filter(x -> x.impact??)?filter(x -> x.impact == issueType) as issues>
                                 <div class="card bg-${colorMap['${issueType}']}">
                                     <div class="alert alert-${colorMap['${issueType}']} btncollapse" role="alert">
                                         <div><strong>Description : </strong>${issues.description}</div>

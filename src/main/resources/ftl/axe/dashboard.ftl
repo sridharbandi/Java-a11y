@@ -1,7 +1,7 @@
 <#assign urlcount =list?size>
 <#assign allcriticalcount=0 allseriouscount=0 allmoderatecount=0 allminorcount=0>
 <#list list as item>
-    <#assign allarray = item.violations+item.incomplete>
+    <#assign allarray = (item.violations+item.incomplete)?filter(x -> x.impact??)>
     <#assign allcriticals =allarray?filter(x -> x.impact == 'critical')>
     <#assign allseriouss =allarray?filter(x -> x.impact == 'serious')>
     <#assign allmoderates =allarray?filter(x -> x.impact == 'moderate')>
