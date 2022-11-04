@@ -3,7 +3,7 @@ var ctx = document.getElementById("myChart").getContext('2d');
 <#assign arraycriticals=[] arrayseriouss=[] arraymoderates=[] arrayminors=[]>
 <#list list as item>
         <#assign chartcriticalcount=0 chartseriouscount=0 chartmoderatecount=0 chartminorcount=0>
-        <#assign chartarray = item.violations+item.incomplete>
+        <#assign chartarray = (item.violations+item.incomplete)?filter(x -> x.impact??)>
         <#assign chartcriticals = chartarray?filter(x -> x.impact == 'critical')>
         <#assign chartseriouss = chartarray?filter(x -> x.impact == 'serious')>
         <#assign chartmoderates = chartarray?filter(x -> x.impact == 'moderate')>
