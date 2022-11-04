@@ -48,7 +48,7 @@
         <hr/>
     </div>
 </div>
-<#assign array = violations+incomplete>
+<#assign array = (violations+incomplete)?filter(x -> x.impact??)>
 <#assign criticals =array?filter(x -> x.impact == 'critical')>
 <#assign seriouss =array?filter(x -> x.impact == 'serious')>
 <#assign moderates =array?filter(x -> x.impact == 'moderate')>

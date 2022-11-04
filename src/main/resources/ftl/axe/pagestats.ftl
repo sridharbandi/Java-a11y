@@ -18,7 +18,7 @@
         </div>
         <div class="row justify-content-center pagespechold">
             <#assign allcriticalcount=0 allseriouscount=0 allmoderatecount=0 allminorcount=0>
-            <#assign allarray = issue.violations+issue.incomplete>
+            <#assign allarray = (issue.violations+issue.incomplete)?filter(x -> x.impact??)>
             <#assign allcriticals =allarray?filter(x -> x.impact == 'critical')>
             <#assign allseriouss =allarray?filter(x -> x.impact == 'serious')>
             <#assign allmoderates =allarray?filter(x -> x.impact == 'moderate')>
