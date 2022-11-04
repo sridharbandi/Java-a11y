@@ -19,7 +19,7 @@ import java.util.Map;
     "tags"
 })
 @Generated("jsonschema2pojo")
-public class Violation {
+public class IssueType {
 
     @JsonProperty("description")
     private String description;

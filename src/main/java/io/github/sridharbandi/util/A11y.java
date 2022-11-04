@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import io.github.sridharbandi.a11y.Engine;
+import io.github.sridharbandi.modal.htmlcs.Params;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,7 +18,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -37,11 +38,19 @@ public class A11y {
         javascriptExecutor = (JavascriptExecutor) driver;
     }
 
-    public void execute(Engine engine, String standard) throws URISyntaxException, IOException, TemplateException {
+    public A11y() {
+    }
+
+    public void execute(Engine engine, Params params) throws URISyntaxException, IOException, TemplateException {
         waitForLoad();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("js/" + engine.toString().toLowerCase() + ".js");
         String js = IOUtils.toString(in, StandardCharsets.UTF_8);
-        String script = engine.name().equalsIgnoreCase("axe") ? "return axeData();" + js : "return getData('" + standard + "');" + js;
+        String strJson = "";
+        if (engine.name().equals(Engine.HTMLCS.name())) {
+            ObjectMapper mapper = new ObjectMapper();
+            strJson = mapper.writeValueAsString(params);
+        }
+        String script = engine.name().equalsIgnoreCase("axe") ? "return axeData();" + js : "return getData('" + strJson + "');" + js;
         Object issues = javascriptExecutor.executeScript(script);
         ObjectMapper objectMapper = new ObjectMapper();
         String strResponse = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(issues);
@@ -51,7 +60,7 @@ public class A11y {
     }
 
     private void waitForLoad() {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(wd -> javascriptExecutor.executeScript("return document.readyState").equals("complete"));
     }
 
@@ -77,7 +86,7 @@ public class A11y {
         Path path = null;
         File report = null;
         try {
-            path = Paths.get("./target/java-a11y/" + engine.toString().toLowerCase() + "/html");
+            path = get("./target/java-a11y/" + engine.toString().toLowerCase() + "/html");
             createDirectories(path);
             report = new File(path + File.separator + name + ".html");
             Writer file = new FileWriter(report);

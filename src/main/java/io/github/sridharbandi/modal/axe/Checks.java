@@ -17,7 +17,7 @@ import java.util.Map;
     "relatedNodes"
 })
 @Generated("jsonschema2pojo")
-public class None {
+public class Checks {
 
     @JsonProperty("data")
     private Object data;

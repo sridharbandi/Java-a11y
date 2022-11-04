@@ -12,10 +12,8 @@ import java.net.URISyntaxException;
 public class AxeRunner implements IRunner {
 
     private A11y a11y;
-    private WebDriver driver;
 
     public AxeRunner(WebDriver driver) {
-        this.driver = driver;
         a11y = new A11y(driver);
     }
 
