@@ -19,7 +19,7 @@ public class FtlConfig {
     private Configuration cfg;
 
     public FtlConfig() {
-        cfg = new Configuration(Configuration.VERSION_2_3_30);
+        cfg = new Configuration(Configuration.VERSION_2_3_31);
         cfg.setClassLoaderForTemplateLoading(this.getClass().getClassLoader(), TEMPLATE_DIR);
         cfg.setDefaultEncoding(ENCODING);
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
