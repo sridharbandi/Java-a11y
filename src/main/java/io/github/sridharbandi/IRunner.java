@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IRunner {
-    void execute() throws IOException, URISyntaxException, TemplateException;
+    Object execute() throws IOException, URISyntaxException, TemplateException;
 
     default void generateHtmlReport(A11y a11y, Engine engine, Class<?> clazz) throws IOException {
         Template tmplIndex = FtlConfig.getInstance().getTemplate(engine.name().toLowerCase() + "/index.ftl");

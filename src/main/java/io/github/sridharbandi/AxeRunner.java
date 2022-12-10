@@ -18,8 +18,8 @@ public class AxeRunner implements IRunner {
     }
 
     @Override
-    public void execute() throws IOException, URISyntaxException, TemplateException {
-        a11y.execute(Engine.AXE, null);
+    public Issues execute() throws IOException, URISyntaxException, TemplateException {
+        return (Issues) a11y.execute(Engine.AXE, null);
     }
 
 

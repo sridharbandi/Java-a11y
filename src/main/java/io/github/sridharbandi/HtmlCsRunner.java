@@ -34,11 +34,11 @@ public class HtmlCsRunner implements IRunner {
 
 
     @Override
-    public void execute() throws IOException, URISyntaxException, TemplateException {
+    public Issues execute() throws IOException, URISyntaxException, TemplateException {
         String stdrd = Objects.isNull(standard) ? HTMLCS.WCAG2AA.name() : standard.name();
         params.setStandard(stdrd);
         params.setIgnoreCodes(codes);
-        a11y.execute(Engine.HTMLCS, params);
+        return (Issues) a11y.execute(Engine.HTMLCS, params);
     }
 
     public void generateHtmlReport() throws IOException {

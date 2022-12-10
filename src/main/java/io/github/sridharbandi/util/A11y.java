@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import io.github.sridharbandi.a11y.Engine;
+import io.github.sridharbandi.modal.htmlcs.Issues;
 import io.github.sridharbandi.modal.htmlcs.Params;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -41,7 +42,7 @@ public class A11y {
     public A11y() {
     }
 
-    public void execute(Engine engine, Params params) throws URISyntaxException, IOException, TemplateException {
+    public Object execute(Engine engine, Params params) throws URISyntaxException, IOException, TemplateException {
         waitForLoad();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("js/" + engine.toString().toLowerCase() + ".js");
         String js = IOUtils.toString(in, StandardCharsets.UTF_8);
@@ -57,6 +58,8 @@ public class A11y {
         Path path = get("./target/java-a11y/" + engine.toString().toLowerCase() + "/json/" + UUID.randomUUID() + ".json");
         createDirectories(path.getParent());
         write(path, strResponse.getBytes(StandardCharsets.UTF_8));
+        Class<?> clazz = engine.name().equalsIgnoreCase("axe") ? io.github.sridharbandi.modal.axe.Issues.class : Issues.class;
+        return objectMapper.readValue(strResponse, clazz);
     }
 
     private void waitForLoad() {
