@@ -23,7 +23,7 @@ public class FtlConfig {
         cfg.setClassLoaderForTemplateLoading(this.getClass().getClassLoader(), TEMPLATE_DIR);
         cfg.setDefaultEncoding(ENCODING);
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        cfg.setSharedVariable("random", new BeansWrapperBuilder(Configuration.VERSION_2_3_30).build().getStaticModels());
+        cfg.setSharedVariable("random", new BeansWrapperBuilder(Configuration.VERSION_2_3_31).build().getStaticModels());
         cfg.setLogTemplateExceptions(false);
         cfg.setWrapUncheckedExceptions(true);
         cfg.setFallbackOnNullLoopVariable(false);

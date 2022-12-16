@@ -36,7 +36,7 @@ public class HtmlCsRunnerTest {
         htmlCsRunner.setStandard(HTMLCS.WCAG2AA);
         String codes[] = {"Code1", "Code2"};
         htmlCsRunner.setIgnoreCodes(codes);
-        htmlCsRunner.execute();
+        htmlCsRunner.setPageTile("Page Title").execute();
         verify(a11y).execute(any(Engine.class), any(Params.class));
     }
 

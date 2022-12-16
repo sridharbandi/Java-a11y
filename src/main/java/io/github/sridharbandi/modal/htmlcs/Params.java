@@ -4,6 +4,7 @@ public class Params {
 
     String standard;
     String[] ignoreCodes;
+    String pageTitle;
 
     public String getStandard() {
         return standard;
@@ -19,5 +20,13 @@ public class Params {
 
     public void setIgnoreCodes(String[] ignoreCodes) {
         this.ignoreCodes = ignoreCodes;
+    }
+
+    public String getPageTitle() {
+        return pageTitle;
+    }
+
+    public void setPageTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
     }
 }
