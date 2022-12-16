@@ -4,6 +4,7 @@ async function getData(params) {
 
     await injectScript();
     const results = await runHtmlCS(obj.standard, codes);
+    const pageTitle = obj.pageTitle == null ? document.title : obj.pageTitle;
     return {
         errors: resultsCount(results, 1),
         warnings: resultsCount(results, 2),
@@ -12,7 +13,7 @@ async function getData(params) {
         date: getFormattedDate(),
         dimension: window.innerWidth + ' X ' + window.innerHeight,
         url: window.location.href,
-        title: document.title,
+        title: pageTitle,
         device: device(),
         browser: getBrowser(),
         results: results,

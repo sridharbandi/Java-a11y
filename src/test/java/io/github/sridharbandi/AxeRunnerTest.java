@@ -1,6 +1,7 @@
 package io.github.sridharbandi;
 
 import io.github.sridharbandi.a11y.Engine;
+import io.github.sridharbandi.modal.htmlcs.Params;
 import io.github.sridharbandi.util.A11y;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.WebDriver;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,8 +24,6 @@ public class AxeRunnerTest {
     AxeRunner axeRunner = new AxeRunner(driver);
     @Mock
     A11y a11y;
-    @Mock
-    IRunner iRunner;
 
     @BeforeEach
     public void setUp() {
@@ -32,7 +32,7 @@ public class AxeRunnerTest {
 
     @Test
     public void testExecute() throws Exception {
-        axeRunner.execute();
-        verify(a11y).execute(Engine.AXE, null);
+        axeRunner.setPageTile("Page Title").execute();
+        verify(a11y).execute(any(Engine.class), any(Params.class));
     }
 }

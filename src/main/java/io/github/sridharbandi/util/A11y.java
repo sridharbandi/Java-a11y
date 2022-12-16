@@ -42,24 +42,20 @@ public class A11y {
     public A11y() {
     }
 
-    public Object execute(Engine engine, Params params) throws URISyntaxException, IOException, TemplateException {
+    public Object execute(Engine engine, Params params) throws IOException {
         waitForLoad();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("js/" + engine.toString().toLowerCase() + ".js");
         String js = IOUtils.toString(in, StandardCharsets.UTF_8);
-        String strJson = "";
-        if (engine.name().equals(Engine.HTMLCS.name())) {
-            ObjectMapper mapper = new ObjectMapper();
-            strJson = mapper.writeValueAsString(params);
-        }
-        String script = engine.name().equalsIgnoreCase("axe") ? "return axeData();" + js : "return getData('" + strJson + "');" + js;
+        ObjectMapper mapper = new ObjectMapper();
+        String strJson = mapper.writeValueAsString(params);
+        String script = engine.name().equalsIgnoreCase("axe") ? "return axeData('" + strJson + "');" + js : "return getData('" + strJson + "');" + js;
         Object issues = javascriptExecutor.executeScript(script);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String strResponse = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(issues);
+        String strResponse = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(issues);
         Path path = get("./target/java-a11y/" + engine.toString().toLowerCase() + "/json/" + UUID.randomUUID() + ".json");
         createDirectories(path.getParent());
         write(path, strResponse.getBytes(StandardCharsets.UTF_8));
         Class<?> clazz = engine.name().equalsIgnoreCase("axe") ? io.github.sridharbandi.modal.axe.Issues.class : Issues.class;
-        return objectMapper.readValue(strResponse, clazz);
+        return mapper.readValue(strResponse, clazz);
     }
 
     private void waitForLoad() {

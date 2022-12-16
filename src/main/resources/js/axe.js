@@ -1,8 +1,9 @@
-async function axeData() {
+async function axeData(params) {
+    const obj = JSON.parse(params);
     await injectAxeScript();
     var results = await runAxe()
     results.id = 'id_' + (Date.now().toString(36) + Math.random().toString(36).substr(2, 5));
-    results.title = document.title;
+    results.title = obj.pageTitle == null ? document.title : obj.pageTitle;
     results.dimension = window.innerWidth + ' X ' + window.innerHeight;
     results.device = device();
     results.browser = getBrowser();

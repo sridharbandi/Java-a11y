@@ -1,6 +1,5 @@
 package io.github.sridharbandi;
 
-import freemarker.template.TemplateException;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.a11y.HTMLCS;
 import io.github.sridharbandi.modal.htmlcs.Issues;
@@ -9,7 +8,6 @@ import io.github.sridharbandi.util.A11y;
 import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class HtmlCsRunner implements IRunner {
@@ -24,17 +22,23 @@ public class HtmlCsRunner implements IRunner {
         params = new Params();
     }
 
-    public void setStandard(HTMLCS standard) {
+    public HtmlCsRunner setStandard(HTMLCS standard) {
         this.standard = standard;
+        return this;
     }
 
-    public void setIgnoreCodes(String[] codes){
+    public HtmlCsRunner setIgnoreCodes(String[] codes) {
         this.codes = codes;
+        return this;
     }
 
+    public HtmlCsRunner setPageTile(String pageTitle) {
+        params.setPageTitle(pageTitle);
+        return this;
+    }
 
     @Override
-    public Issues execute() throws IOException, URISyntaxException, TemplateException {
+    public Issues execute() throws IOException {
         String stdrd = Objects.isNull(standard) ? HTMLCS.WCAG2AA.name() : standard.name();
         params.setStandard(stdrd);
         params.setIgnoreCodes(codes);
