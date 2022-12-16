@@ -29,12 +29,12 @@ For maven based project add the below dependency
 <dependency>
   <groupId>io.github.sridharbandi</groupId>
   <artifactId>java-a11y</artifactId>
-  <version>3.0.1</version>
+  <version>3.0.2</version>
 </dependency>
 ```
 For gradle based project add the below dependency
 ```
-compile 'io.github.sridharbandi:java-a11y:3.0.1'
+compile 'io.github.sridharbandi:java-a11y:3.0.2'
 ```
 For non gradle/maven project download the jar from below mentioned link and add it to CLASSPATH for your project
 
@@ -95,7 +95,7 @@ public class Example {
     }
 
     @AfterEach
-    public void tearDown() throws TemplateException, IOException, URISyntaxException {
+    public void tearDown() throws IOException {
         htmlCsRunner.execute();
         driver.quit();
     }
@@ -188,7 +188,7 @@ public class Example {
     }
 
     @AfterEach
-    public void tearDown() throws TemplateException, IOException, URISyntaxException {
+    public void tearDown() throws IOException {
         axeRunner.execute();
         driver.quit();
     }
