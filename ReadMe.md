@@ -137,7 +137,7 @@ Page Report
 #### Using Deque Axe
 Create object of `AxeRunner` as below. `driver` will be your WebDriver instance.
 ```java
-AxeRunner axeRunner = new AxeRunner(driver);;
+AxeRunner axeRunner = new AxeRunner(driver);
 ```
 
 Once after you navigated to any page/popup with Selenium Webdriver execute Accessibility on that particular page/popup
@@ -209,6 +209,21 @@ public class Example {
     }
 
 }
+```
+
+By default, it will check against `WCAG2AA` and `section508` tags. However, you can configure it to tag you want to test with
+```java
+axeRunner.setTags(AxeTag.WCAG21AA);
+```
+Or multiple tags using varargs syntax
+```java
+axeRunner.setTags(AxeTag.WCAG21A, AxeTag.BEST_PRACTICE);
+```
+
+Each [Tag](https://www.deque.com/axe/core-documentation/api-documentation/#axe-core-tags) has set of [Rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) and you can enable/disable particular rule as needed
+```java
+axeRunner.disableRules("link-name", "aria-allowed-role")
+         .enableRules("autocomplete-valid", "region")
 ```
 
 HTML Reports will be generated under `./target/java-a11y/axe` folder.
