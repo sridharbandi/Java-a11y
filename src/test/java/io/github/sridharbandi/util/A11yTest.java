@@ -1,6 +1,9 @@
 package io.github.sridharbandi.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Template;
+import io.github.sridharbandi.a11y.AxeTag;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.a11y.HTMLCS;
 import io.github.sridharbandi.ftl.FtlConfig;
@@ -25,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -63,5 +67,30 @@ public class A11yTest {
         a11y.save(template, map, "page", Engine.HTMLCS);
         Path path = Paths.get("./target/java-a11y/htmlcs/html/page.html");
         assertTrue(FileUtils.deleteQuietly(path.toFile()));
+    }
+
+    @Test
+    public void testSerializeAxeTags() throws Exception {
+        Params params = new Params();
+        params.setTags(AxeTag.WCAG2AA, AxeTag.WCAG2A);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        String serializedObject = mapper.writeValueAsString(params.getTags());
+        String expectedObject = "[\"wcag2aa\",\"wcag2a\"]";
+        assertEquals(serializedObject, expectedObject);
+    }
+
+    @Test
+    public void testSerializeRules() throws Exception {
+        Params params = new Params();
+        params.disableRules("color-contrast, area-alt", "");
+        params.enableRules("audio-caption");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        String serializedObject = mapper.writeValueAsString(params.getRules());
+        String expectedObject = "{\"audio-caption\":{\"enabled\":true},\"color-contrast, area-alt\":{\"enabled\":false}}";
+        assertEquals(serializedObject, expectedObject);
     }
 }

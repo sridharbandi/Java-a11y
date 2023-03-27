@@ -1,5 +1,6 @@
 package io.github.sridharbandi;
 
+import io.github.sridharbandi.a11y.AxeTag;
 import io.github.sridharbandi.a11y.Engine;
 import io.github.sridharbandi.modal.htmlcs.Params;
 import io.github.sridharbandi.util.A11y;
@@ -32,7 +33,11 @@ public class AxeRunnerTest {
 
     @Test
     public void testExecute() throws Exception {
-        axeRunner.setPageTile("Page Title").execute();
+        axeRunner.setPageTile("Page Title")
+                .setTags(AxeTag.WCAG21AA)
+                .disableRules("link-name")
+                .enableRules("autocomplete-valid")
+                .execute();
         verify(a11y).execute(any(Engine.class), any(Params.class));
     }
 }
