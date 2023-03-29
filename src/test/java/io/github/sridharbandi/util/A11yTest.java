@@ -31,6 +31,8 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.matches;
 
 @ExtendWith(MockitoExtension.class)
 public class A11yTest {
@@ -47,6 +49,16 @@ public class A11yTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+    }
+    
+    @Test
+    public void testScriptUrlConfiguration() throws IOException {
+      when(javascriptExecutor.executeScript("return document.readyState")).thenReturn("complete");
+      Params params = new Params();
+      String alternativeScriptURL = "https://my-other-script-url";
+      params.setScriptURL(alternativeScriptURL);
+      a11y.execute(Engine.AXE, params);
+      verify(javascriptExecutor).executeScript(matches(String.format("axeData\\(.*\"scriptURL\":\"%s\".*\\)", alternativeScriptURL)));
     }
 
     @Test
