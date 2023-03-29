@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class HtmlCsRunner implements IRunner {
-
+  
     private A11y a11y;
     private HTMLCS standard;
     private Params params;
@@ -35,6 +35,11 @@ public class HtmlCsRunner implements IRunner {
     public HtmlCsRunner setPageTile(String pageTitle) {
         params.setPageTitle(pageTitle);
         return this;
+    }
+
+    public HtmlCsRunner setScriptUrl(String url) {
+      params.setScriptURL(url);
+      return this;
     }
 
     @Override

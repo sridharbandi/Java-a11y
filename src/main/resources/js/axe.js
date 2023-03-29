@@ -1,6 +1,6 @@
 async function axeData(params) {
 	const obj = JSON.parse(params);
-	await injectAxeScript();
+	await injectAxeScript(obj.scriptURL);
 	var rules = obj.rules;
 	var tags = obj.tags;
 	var results = await runAxe(tags, rules);
@@ -92,10 +92,10 @@ function runAxe(tags, rules) {
 	});
 }
 
-function injectAxeScript() {
+function injectAxeScript(scriptURL) {
 	return new Promise((resolve, reject) => {
 		const script = document.createElement('script');
-		script.src = "https://cdn.jsdelivr.net/npm/axe-core@latest/axe.min.js";
+		script.src = scriptURL ?? "https://cdn.jsdelivr.net/npm/axe-core@latest/axe.min.js";
 		script.addEventListener('load', resolve);
 		script.addEventListener('error', e => reject(e.error));
 		document.head.appendChild(script);

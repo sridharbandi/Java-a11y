@@ -39,6 +39,11 @@ public class AxeRunner implements IRunner {
         return this;
     }
 
+    public AxeRunner setScriptURL(String url) {
+      params.setScriptURL(url);
+      return this;
+    }
+
     @Override
     public Issues execute() throws IOException {
         return (Issues) a11y.execute(Engine.AXE, params);

@@ -2,7 +2,7 @@ async function getData(params) {
     const obj = JSON.parse(params);
     const codes = obj.ignoreCodes;
 
-    await injectScript();
+    await injectScript(obj.scriptURL);
     const results = await runHtmlCS(obj.standard, codes);
     const pageTitle = obj.pageTitle == null ? document.title : obj.pageTitle;
     return {
@@ -31,10 +31,10 @@ function getFormattedDate() {
     return formattedDate;
 }
 
-function injectScript() {
+function injectScript(scriptURL) {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
-        script.src = "https://squizlabs.github.io/HTML_CodeSniffer/build/HTMLCS.js";
+        script.src = scriptURL ?? "https://squizlabs.github.io/HTML_CodeSniffer/build/HTMLCS.js";
         script.addEventListener('load', resolve);
         script.addEventListener('error', e => reject(e.error));
         document.head.appendChild(script);
