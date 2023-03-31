@@ -37,7 +37,7 @@ public class HtmlCsRunner implements IRunner {
         return this;
     }
 
-    public HtmlCsRunner setScriptUrl(String url) {
+    public HtmlCsRunner setScriptURL(String url) {
       params.setScriptURL(url);
       return this;
     }
