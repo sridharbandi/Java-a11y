@@ -29,12 +29,12 @@ For maven based project add the below dependency
 <dependency>
   <groupId>io.github.sridharbandi</groupId>
   <artifactId>java-a11y</artifactId>
-  <version>3.0.3</version>
+  <version>3.0.4</version>
 </dependency>
 ```
 For gradle based project add the below dependency
 ```
-compile 'io.github.sridharbandi:java-a11y:3.0.3'
+compile 'io.github.sridharbandi:java-a11y:3.0.4'
 ```
 For non gradle/maven project download the jar from below mentioned link and add it to CLASSPATH for your project
 
