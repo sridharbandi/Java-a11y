@@ -13,6 +13,7 @@ public class Params {
     String pageTitle;
     Map<String, AxeRuleOptions> rules;
     List<String> tags;
+    String scriptURL;
 
     public Params(){
         this.rules = new HashMap<>();
@@ -41,6 +42,14 @@ public class Params {
 
     public void setPageTitle(String pageTitle) {
         this.pageTitle = pageTitle;
+    }
+
+    public String getScriptURL() {
+      return scriptURL;
+    }
+    
+    public void setScriptURL(String scriptURL) {
+      this.scriptURL = scriptURL;
     }
 
     public Map<String, AxeRuleOptions> getRules() {
