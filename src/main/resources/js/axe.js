@@ -10,6 +10,10 @@ async function axeData(params) {
 	results.device = device();
 	results.browser = getBrowser();
 	results.date = getFormattedDate();
+
+	flattenTargetArrays(results.violations);
+	flattenTargetArrays(results.incomplete);
+	flattenTargetArrays(results.inapplicable);
 	return results;
 }
 
@@ -100,4 +104,18 @@ function injectAxeScript(scriptURL) {
 		script.addEventListener('error', e => reject(e.error));
 		document.head.appendChild(script);
 	});
+}
+
+function flattenTargetArrays(resultsArray) {
+	if (Array.isArray(resultsArray)) {
+		resultsArray.forEach(result => {
+			if (result.nodes && Array.isArray(result.nodes)) {
+				result.nodes.forEach(node => {
+					if (node.target && Array.isArray(node.target)) {
+						node.target = node.target.flat();
+					}
+				});
+			}
+		});
+	}
 }
