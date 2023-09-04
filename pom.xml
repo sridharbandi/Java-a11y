@@ -40,7 +40,7 @@
         <slf4j.version>2.0.3</slf4j.version>
         <junit.version>5.9.1</junit.version>
         <mockito.verion>4.8.1</mockito.verion>
-        <selenium.version>4.10.0</selenium.version>
+        <selenium.version>4.12.0</selenium.version>
         <jackson.version>2.14.0-rc3</jackson.version>
         <commonsio.version>2.11.0</commonsio.version>
         <annotation.version>1.3.2</annotation.version>
